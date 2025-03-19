@@ -10,11 +10,11 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
           {/* Logo column - takes up more space */}
           <div className="md:col-span-6 lg:col-span-6">
-            <div className="mb-6">
+            <div className="flex h-full">
               <img 
                 src="/lovable-uploads/0ed14a87-1ccd-43b5-a0eb-e996c57f32b7.png" 
                 alt="Tenbeo" 
-                className="h-24" 
+                className="h-auto max-h-[148px]" 
               />
             </div>
           </div>

@@ -12,9 +12,9 @@ const Footer = () => {
           <div className="md:col-span-6 lg:col-span-6">
             <div className="mb-6">
               <img 
-                src="/lovable-uploads/896fc80b-1af9-4e22-9117-ccf475bfa0c0.png" 
+                src="/lovable-uploads/0ed14a87-1ccd-43b5-a0eb-e996c57f32b7.png" 
                 alt="Tenbeo" 
-                className="h-14" 
+                className="h-24" 
               />
             </div>
           </div>
@@ -41,8 +41,6 @@ const Footer = () => {
             </ul>
           </div>
         </div>
-        
-        {/* Copyright section removed as it doesn't appear in the design */}
         
         {/* Hidden heartbeat animation that can be revealed elsewhere */}
         <div className="hidden">

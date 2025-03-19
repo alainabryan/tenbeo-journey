@@ -10,12 +10,18 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
           {/* Logo column - takes up more space */}
           <div className="md:col-span-6 lg:col-span-6">
-            <div className="flex h-full">
+            <div className="flex flex-col">
               <img 
-                src="/lovable-uploads/0ed14a87-1ccd-43b5-a0eb-e996c57f32b7.png" 
+                src="/lovable-uploads/896fc80b-1af9-4e22-9117-ccf475bfa0c0.png" 
                 alt="Tenbeo" 
-                className="h-auto max-h-[148px]" 
+                className="h-auto max-w-xs mb-4" 
               />
+              <p className="text-muted-foreground text-lg mb-2">
+                Tenbeo is revolutionizing digital security with heartbeat-based biometric authentication.
+              </p>
+              <p className="text-muted-foreground text-lg">
+                Our mission is to create a more secure digital world, one heartbeat at a time.
+              </p>
             </div>
           </div>
           

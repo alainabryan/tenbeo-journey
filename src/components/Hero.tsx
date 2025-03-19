@@ -38,6 +38,15 @@ const Hero = () => {
           <span className="text-tenbeo-light">Pre-order now available</span>
         </div>
         
+        {/* Featured heartbeat animation */}
+        <div className="mb-6 relative">
+          <div className="w-16 h-16 mx-auto rounded-full bg-tenbeo flex items-center justify-center">
+            <span className="animate-heartbeat inline-block w-10 h-10 rounded-full bg-tenbeo-light"></span>
+          </div>
+          <div className="w-24 h-24 rounded-full bg-tenbeo/30 absolute -top-4 -left-4 animate-pulse-slow"></div>
+          <div className="w-20 h-20 rounded-full bg-tenbeo/20 absolute -bottom-3 -right-3 animate-pulse-slow" style={{ animationDelay: '1.5s' }}></div>
+        </div>
+        
         <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-center mb-6 leading-tight tracking-tight">
           Authenticate with your <br className="hidden md:block" />
           <span className="relative inline-block">

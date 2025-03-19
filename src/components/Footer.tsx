@@ -14,15 +14,21 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
           <div className="md:col-span-2">
             <div className="flex items-center mb-4">
-              <div className="w-8 h-8 rounded-full bg-tenbeo flex items-center justify-center mr-2">
-                <Heart className="w-4 h-4 text-white" />
-              </div>
-              <span className="text-2xl font-bold">Tenbeo</span>
+              <img 
+                src="/lovable-uploads/0ed14a87-1ccd-43b5-a0eb-e996c57f32b7.png" 
+                alt="Tenbeo" 
+                className="h-12 mr-2" 
+              />
             </div>
             <p className="text-muted-foreground mb-6 max-w-md">
               Tenbeo is revolutionizing digital security with heartbeat-based biometric authentication. 
               Our mission is to create a more secure digital world, one heartbeat at a time.
             </p>
+            
+            {/* Retain the heartbeat animation element as a decorative feature */}
+            <div className="w-12 h-12 rounded-full bg-tenbeo/10 flex items-center justify-center mb-6">
+              <span className="animate-heartbeat inline-block w-6 h-6 rounded-full bg-tenbeo/40"></span>
+            </div>
           </div>
           
           <div>

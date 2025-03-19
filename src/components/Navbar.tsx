@@ -70,10 +70,11 @@ const Navbar = () => {
             scrollToSection('hero');
           }}
         >
-          <span className="mr-2 inline-block w-8 h-8 rounded-full bg-tenbeo flex items-center justify-center transition-transform group-hover:scale-110">
-            <span className="animate-heartbeat inline-block w-5 h-5 rounded-full bg-tenbeo-light"></span>
-          </span>
-          Tenbeo
+          <img 
+            src="/lovable-uploads/896fc80b-1af9-4e22-9117-ccf475bfa0c0.png" 
+            alt="Tenbeo" 
+            className="h-8 mr-2 transition-transform group-hover:scale-105" 
+          />
         </a>
         
         <div className="hidden md:flex space-x-1 bg-card/80 backdrop-blur-sm rounded-full px-2 py-1">

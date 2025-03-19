@@ -1,6 +1,7 @@
 
 import { Check, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { Link } from 'react-router-dom';
 
 const PricingCard = ({ 
   title, 
@@ -9,7 +10,9 @@ const PricingCard = ({
   features, 
   highlighted = false, 
   buttonText = "Pre-order now",
-  unavailableFeatures = []
+  unavailableFeatures = [],
+  contactSales = false,
+  productId = ""
 }) => {
   return (
     <div className={cn(
@@ -52,14 +55,25 @@ const PricingCard = ({
         </ul>
       </div>
       
-      <button className={cn(
-        "w-full py-3 px-4 rounded-lg font-medium transition-all",
-        highlighted 
-          ? "bg-tenbeo hover:bg-tenbeo-dark text-white" 
-          : "bg-secondary hover:bg-secondary/80 text-foreground"
-      )}>
-        {buttonText}
-      </button>
+      {contactSales ? (
+        <button className={cn(
+          "w-full py-3 px-4 rounded-lg font-medium transition-all",
+          highlighted 
+            ? "bg-tenbeo hover:bg-tenbeo-dark text-white" 
+            : "bg-secondary hover:bg-secondary/80 text-foreground"
+        )}>
+          {buttonText}
+        </button>
+      ) : (
+        <Link to={`/checkout?product=${productId}`} className={cn(
+          "w-full py-3 px-4 rounded-lg font-medium transition-all text-center",
+          highlighted 
+            ? "bg-tenbeo hover:bg-tenbeo-dark text-white" 
+            : "bg-secondary hover:bg-secondary/80 text-foreground"
+        )}>
+          {buttonText}
+        </Link>
+      )}
     </div>
   );
 };
@@ -97,6 +111,7 @@ const Pricing = () => {
               "Multi-device support",
               "API access"
             ]}
+            productId="standard"
           />
           
           <PricingCard
@@ -116,6 +131,7 @@ const Pricing = () => {
               "API access"
             ]}
             highlighted={true}
+            productId="premium"
           />
           
           <PricingCard
@@ -133,6 +149,7 @@ const Pricing = () => {
               "Employee onboarding support"
             ]}
             buttonText="Contact Sales"
+            contactSales={true}
           />
         </div>
       </div>

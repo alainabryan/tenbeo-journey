@@ -1,6 +1,7 @@
 
 import { useEffect, useState } from 'react';
 import { ArrowDown, Heart, Lock, Shield } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const Hero = () => {
   const [userCount, setUserCount] = useState(1530);
@@ -34,8 +35,18 @@ const Hero = () => {
       </div>
       
       <div className="container mx-auto px-4 md:px-8 z-10 flex flex-col items-center">
-        <div className="inline-block mb-4 px-4 py-1 rounded-full bg-tenbeo/10 border border-tenbeo/20 text-sm">
-          <span className="text-tenbeo-light">Pre-order now available</span>
+        <div className="flex items-center gap-4 mb-4">
+          <div className="inline-block px-4 py-1 rounded-full bg-tenbeo/10 border border-tenbeo/20 text-sm">
+            <span className="text-tenbeo-light">Pre-order now available</span>
+          </div>
+          
+          {/* Animated element moved from elsewhere in the component */}
+          <div className="relative h-8 w-8">
+            <div className="w-8 h-8 rounded-full bg-tenbeo/20 animate-pulse-slow"></div>
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="w-4 h-4 rounded-full bg-tenbeo/40 animate-heartbeat"></div>
+            </div>
+          </div>
         </div>
         
         {/* Featured heartbeat animation */}

@@ -16,10 +16,10 @@ const Footer = () => {
                 alt="Tenbeo" 
                 className="h-auto max-w-xs mb-4" 
               />
-              <p className="text-muted-foreground text-sm md:text-base lg:text-base xl:text-base mb-1 line-clamp-1">
+              <p className="text-muted-foreground text-[11px] xs:text-xs sm:text-sm md:text-sm lg:text-sm xl:text-base mb-1">
                 Tenbeo is revolutionizing digital security with heartbeat-based biometric authentication.
               </p>
-              <p className="text-muted-foreground text-sm md:text-base lg:text-base xl:text-base line-clamp-1">
+              <p className="text-muted-foreground text-[11px] xs:text-xs sm:text-sm md:text-sm lg:text-sm xl:text-base">
                 Our mission is to create a more secure digital world, one heartbeat at a time.
               </p>
             </div>

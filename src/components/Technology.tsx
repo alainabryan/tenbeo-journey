@@ -19,7 +19,6 @@ const Technology = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div className="relative animate-fade-in">
-            {/* Stylized marketing-oriented blueprint of the Wellue DuoEK ECG sensor */}
             <div className="relative z-10 border-2 border-tenbeo/30 rounded-xl overflow-hidden">
               <div className="absolute inset-0 bg-gradient-to-b from-tenbeo/5 to-tenbeo/10"></div>
               <div className="relative z-10 p-6">
@@ -34,56 +33,64 @@ const Technology = () => {
                   <div className="relative z-10 p-8 flex flex-col items-center">
                     {/* Sensor visualization */}
                     <div className="relative w-full max-w-md mx-auto">
-                      {/* Stylized device illustration */}
-                      <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
-                        {/* Connection lines */}
-                        <path d="M 80 80 L 140 40" stroke="rgba(141, 82, 233, 0.4)" strokeWidth="1" strokeDasharray="3 2" fill="none" />
-                        <path d="M 320 80 L 260 40" stroke="rgba(141, 82, 233, 0.4)" strokeWidth="1" strokeDasharray="3 2" fill="none" />
-                        <path d="M 200 240 L 200 300" stroke="rgba(141, 82, 233, 0.4)" strokeWidth="1" strokeDasharray="3 2" fill="none" />
-                        <path d="M 320 160 L 380 160" stroke="rgba(141, 82, 233, 0.4)" strokeWidth="1" strokeDasharray="3 2" fill="none" />
-                      </svg>
-                      
-                      {/* The sensor device */}
-                      <div className="relative bg-white/5 backdrop-blur-sm border border-tenbeo-light/20 rounded-3xl p-6 mb-12 flex justify-center">
-                        <div className="relative w-full flex flex-col items-center">
-                          {/* Main device body - oval shaped portable ECG */}
-                          <div className="relative w-64 h-36 bg-gradient-to-r from-tenbeo-darker to-tenbeo-dark rounded-full flex items-center justify-center mb-8">
-                            {/* ECG Screen on device */}
-                            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-16 bg-black/60 rounded-full flex items-center justify-center overflow-hidden border border-tenbeo-light/30">
-                              <Activity className="w-24 h-6 text-tenbeo-light animate-pulse" />
-                            </div>
-                            
-                            {/* Brand logo on device */}
-                            <div className="absolute top-6 left-1/2 transform -translate-x-1/2 w-8 h-8 rounded-full bg-tenbeo-light/20 border border-tenbeo-light/40 flex items-center justify-center">
-                              <span className="text-xs font-bold text-tenbeo-light">R</span>
-                            </div>
-                          </div>
+                      {/* Photo-realistic ECG device with purple color scheme */}
+                      <div className="relative w-full h-64 flex items-center justify-center">
+                        {/* Main ECG device image - with purple color styling */}
+                        <svg className="w-full h-full" viewBox="0 0 400 250" xmlns="http://www.w3.org/2000/svg">
+                          {/* Background glow effect */}
+                          <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+                            <feGaussianBlur stdDeviation="5" result="blur" />
+                            <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                          </filter>
                           
-                          {/* Charging dock */}
-                          <div className="relative w-80 h-40 bg-gradient-to-b from-tenbeo-darker/80 to-tenbeo-dark/90 rounded-3xl p-4 flex flex-col items-center">
-                            {/* Dock connection points */}
-                            <div className="absolute top-4 left-1/2 transform -translate-x-1/2 w-40 h-4 bg-tenbeo-darker/80 rounded-full"></div>
+                          {/* Device body */}
+                          <g transform="rotate(-15, 200, 125)">
+                            {/* Purple glow around device */}
+                            <ellipse cx="200" cy="125" rx="110" ry="55" fill="rgba(141, 82, 233, 0.15)" filter="url(#glow)" />
                             
-                            {/* Control buttons */}
-                            <div className="absolute bottom-6 w-full flex justify-around px-12">
-                              <div className="w-12 h-12 rounded-full bg-tenbeo/20 border border-tenbeo-light/30 flex items-center justify-center">
-                                <span className="text-xl font-light text-tenbeo-light">+</span>
-                              </div>
-                              <div className="w-12 h-12 rounded-full bg-tenbeo/20 border border-tenbeo-light/30 flex items-center justify-center">
-                                <span className="text-xl font-light text-tenbeo-light">-</span>
-                              </div>
-                            </div>
+                            {/* Main body of the ECG device */}
+                            <ellipse cx="200" cy="125" rx="100" ry="50" fill="url(#deviceGradient)" />
+                            <defs>
+                              <linearGradient id="deviceGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stopColor="#3E0C94" />
+                                <stop offset="50%" stopColor="#5713CB" />
+                                <stop offset="100%" stopColor="#8D52E9" />
+                              </linearGradient>
+                            </defs>
                             
-                            {/* Charging points */}
-                            <div className="absolute top-1/2 left-1/4 transform -translate-y-1/2 w-8 h-8 rounded-full bg-tenbeo-light/10 border border-tenbeo-light/20"></div>
-                            <div className="absolute top-1/2 right-1/4 transform -translate-y-1/2 w-8 h-8 rounded-full bg-tenbeo-light/10 border border-tenbeo-light/20"></div>
+                            {/* Sensor pad top */}
+                            <ellipse cx="200" cy="85" rx="45" ry="25" fill="#2A0864" stroke="#8D52E9" strokeWidth="1" />
                             
-                            {/* Label in dock */}
-                            <div className="absolute bottom-20 left-1/2 transform -translate-x-1/2 w-32 text-center">
-                              <span className="text-xs text-tenbeo-light/60">DUOEK CHARGING DOCK</span>
-                            </div>
-                          </div>
-                        </div>
+                            {/* Sensor pad bottom */}
+                            <ellipse cx="200" cy="165" rx="45" ry="25" fill="#2A0864" stroke="#8D52E9" strokeWidth="1" />
+                            
+                            {/* Center display screen */}
+                            <ellipse cx="200" cy="125" rx="25" ry="20" fill="#121212" stroke="#A87DF0" strokeWidth="1" />
+                            
+                            {/* ECG line on display */}
+                            <path d="M 180 125 L 185 125 L 190 115 L 195 135 L 200 125 L 205 125 L 210 125 L 215 125 L 220 125" 
+                                  stroke="#A87DF0" strokeWidth="1.5" fill="none" />
+                            
+                            {/* Button left */}
+                            <circle cx="155" cy="125" r="8" fill="#2A0864" stroke="#8D52E9" strokeWidth="1" />
+                            
+                            {/* Button right */}
+                            <circle cx="245" cy="125" r="8" fill="#2A0864" stroke="#8D52E9" strokeWidth="1" />
+                            
+                            {/* Power indicator */}
+                            <circle cx="170" cy="105" r="3" fill="#A87DF0">
+                              <animate attributeName="opacity" values="1;0.5;1" dur="2s" repeatCount="indefinite" />
+                            </circle>
+                            
+                            {/* Reflections */}
+                            <ellipse cx="170" cy="105" rx="80" ry="10" fill="rgba(255, 255, 255, 0.1)" transform="rotate(-15, 170, 105)" />
+                            <ellipse cx="230" cy="145" rx="70" ry="8" fill="rgba(0, 0, 0, 0.2)" transform="rotate(-15, 230, 145)" />
+                            
+                            {/* Brand logo */}
+                            <circle cx="265" cy="115" r="10" fill="#5713CB" stroke="#A87DF0" strokeWidth="1" />
+                            <text x="265" y="119" fill="#FFFFFF" fontSize="10" fontWeight="bold" textAnchor="middle">W</text>
+                          </g>
+                        </svg>
                       </div>
                       
                       {/* Feature callouts - keeping these as in the original */}

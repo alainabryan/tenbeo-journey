@@ -10,6 +10,7 @@ import EnterpriseSection from '@/components/EnterpriseSection';
 import FAQs from '@/components/FAQs';
 import Footer from '@/components/Footer';
 import PreOrderCTA from '@/components/PreOrderCTA';
+import Calabeo from '@/components/Calabeo';
 
 const Index = () => {
   // Add smooth scrolling for all anchor links
@@ -65,14 +66,24 @@ const Index = () => {
       <main>
         <Hero />
         <About />
-        {/* Added PreOrderCTA between About and HowItWorks as requested */}
-        <PreOrderCTA variant="primary" showHeartbeat={true} />
+        <PreOrderCTA 
+          variant="primary" 
+          showHeartbeat={true} 
+        />
         <HowItWorks />
         <Technology />
+        <div className="relative py-20 flex justify-center items-center overflow-hidden">
+          <div className="absolute inset-0 opacity-30">
+            <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-tenbeo-darker/10 to-transparent"></div>
+          </div>
+          <Calabeo size="xl" variant="multicolor" className="z-10" />
+        </div>
         <Pricing />
         <EnterpriseSection />
-        {/* Added PreOrderCTA between EnterpriseSection and FAQs as requested */}
-        <PreOrderCTA variant="secondary" showHeartbeat={false} />
+        <PreOrderCTA 
+          variant="secondary" 
+          showHeartbeat={false} 
+        />
         <FAQs />
       </main>
       <Footer />

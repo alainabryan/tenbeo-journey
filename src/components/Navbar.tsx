@@ -3,10 +3,12 @@ import { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
+import { Menu, X } from 'lucide-react';
 
 const Navbar = () => {
   const [activeSection, setActiveSection] = useState('hero');
   const [scrolled, setScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const sections = [
     { id: 'about', label: 'About' },
@@ -56,12 +58,13 @@ const Navbar = () => {
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
+    setMobileMenuOpen(false);
   };
 
   return (
     <nav className={cn(
       "fixed top-0 left-0 w-full z-50 transition-all duration-300",
-      scrolled ? "py-4 glassmorphism shadow-md" : "py-6 bg-transparent"
+      scrolled ? "py-3 glassmorphism shadow-md" : "py-5 bg-transparent"
     )}>
       <div className="container mx-auto flex justify-between items-center px-4">
         {/* Logo - Left aligned */}
@@ -81,7 +84,7 @@ const Navbar = () => {
         </a>
         
         {/* Navigation - Centered */}
-        <div className="hidden md:flex space-x-1 bg-card/80 backdrop-blur-sm rounded-full px-2 py-1 mx-auto">
+        <div className="hidden md:flex space-x-1 bg-card/80 backdrop-blur-sm rounded-full px-2 py-1">
           {sections.map((section) => (
             <a
               key={section.id}
@@ -109,10 +112,49 @@ const Navbar = () => {
           </Button>
         </Link>
         
-        <div className="md:hidden">
-          {/* Mobile menu button would go here */}
-        </div>
+        {/* Mobile menu button */}
+        <button 
+          className="md:hidden p-2 rounded-md bg-card/50"
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+        >
+          {mobileMenuOpen ? (
+            <X className="w-6 h-6" />
+          ) : (
+            <Menu className="w-6 h-6" />
+          )}
+        </button>
       </div>
+      
+      {/* Mobile menu */}
+      {mobileMenuOpen && (
+        <div className="md:hidden glassmorphism mt-2 mx-4 rounded-xl p-4 border border-white/10">
+          <div className="flex flex-col space-y-3">
+            {sections.map((section) => (
+              <a
+                key={section.id}
+                href={`#${section.id}`}
+                className={cn(
+                  "px-4 py-2 rounded-md transition-colors",
+                  activeSection === section.id ? "bg-tenbeo/20 text-white" : "text-muted-foreground"
+                )}
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection(section.id);
+                }}
+              >
+                {section.label}
+              </a>
+            ))}
+            <Link 
+              to="/checkout"
+              className="mt-2 px-4 py-2 bg-tenbeo text-white rounded-md text-center"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Pre-order Now
+            </Link>
+          </div>
+        </div>
+      )}
     </nav>
   );
 };

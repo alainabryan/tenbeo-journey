@@ -3,6 +3,7 @@ import { ArrowRight, Heart } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import Calabeo from './Calabeo';
 
 interface PreOrderCTAProps {
   variant?: 'primary' | 'secondary';
@@ -13,7 +14,9 @@ const PreOrderCTA = ({ variant = 'primary', showHeartbeat = true }: PreOrderCTAP
   return (
     <section className={cn(
       "py-20 relative overflow-hidden",
-      variant === 'primary' ? "bg-gradient-to-r from-tenbeo-darker to-tenbeo-dark" : "glassmorphism"
+      variant === 'primary' 
+        ? "bg-gradient-to-r from-tenbeo-darker to-tenbeo-dark" 
+        : "glassmorphism bg-background/50"
     )}>
       {/* Background elements */}
       <div className="absolute inset-0 opacity-20">
@@ -58,20 +61,7 @@ const PreOrderCTA = ({ variant = 'primary', showHeartbeat = true }: PreOrderCTAP
         
         {showHeartbeat && (
           <div className="md:w-1/2 flex justify-center">
-            <div className="relative">
-              <div className="w-48 h-48 bg-white/10 rounded-full flex items-center justify-center">
-                <div className="w-36 h-36 bg-white/20 rounded-full flex items-center justify-center animate-pulse-slow">
-                  <div className="w-24 h-24 bg-tenbeo rounded-full flex items-center justify-center">
-                    <Heart className="w-12 h-12 text-white animate-heartbeat" />
-                  </div>
-                </div>
-              </div>
-              
-              {/* Ripple effects */}
-              <div className="absolute inset-0 w-48 h-48 rounded-full border border-white/20 animate-pulse-slow"></div>
-              <div className="absolute inset-0 w-48 h-48 rounded-full border border-white/10 animate-pulse-slow" style={{ animationDelay: '1s' }}></div>
-              <div className="absolute inset-0 w-48 h-48 rounded-full border border-white/5 animate-pulse-slow" style={{ animationDelay: '2s' }}></div>
-            </div>
+            <Calabeo size="lg" variant={variant === 'primary' ? 'purple' : 'gradient'} />
           </div>
         )}
       </div>

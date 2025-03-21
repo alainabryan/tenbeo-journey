@@ -113,6 +113,32 @@
                       linear-gradient(90deg, rgba(87, 19, 203, 0.05) 1px, transparent 1px);
     background-size: 20px 20px;
   }
+  
+  .calabeo-glow {
+    filter: drop-shadow(0 0 15px rgba(141, 82, 233, 0.5));
+  }
+  
+  .shine-effect {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .shine-effect::after {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+      to bottom right,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.1) 50%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    transform: rotate(30deg);
+    animation: shine 6s infinite;
+  }
 }
 
 .heartbeat-animation {
@@ -125,4 +151,22 @@
   28% { transform: scale(1); }
   42% { transform: scale(1.1); }
   70% { transform: scale(1); }
+}
+
+@keyframes shine {
+  0% {
+    left: -100%;
+    top: -100%;
+  }
+  100% {
+    left: 100%;
+    top: 100%;
+  }
+}
+
+@keyframes float-subtle {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  25% { transform: translateY(-5px) rotate(1deg); }
+  50% { transform: translateY(0) rotate(0deg); }
+  75% { transform: translateY(5px) rotate(-1deg); }
 }

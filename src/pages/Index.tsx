@@ -76,7 +76,7 @@ const Index = () => {
           <div className="absolute inset-0 opacity-30">
             <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-tenbeo-darker/10 to-transparent"></div>
           </div>
-          <Calabeo size="xl" variant="multicolor" className="z-10" />
+          <Calabeo size="xl" variant="spiro" className="z-10" />
         </div>
         <Pricing />
         <EnterpriseSection />

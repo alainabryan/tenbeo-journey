@@ -49,7 +49,7 @@ const Hero = () => {
         <div className="w-full max-w-2xl aspect-square relative mb-16">
           <div className="absolute inset-0 bg-gradient-to-r from-tenbeo-dark/20 to-tenbeo-light/20 rounded-full blur-3xl opacity-30"></div>
           <img 
-            src="/lovable-uploads/6538196a-8eec-4579-a9b5-e02aa0fcc292.png" 
+            src="/lovable-uploads/4ae18c97-f220-4a36-82c7-34d563cfb97b.png" 
             alt="Calabeo Heartbeat Visualization" 
             className="w-full h-full object-contain animate-float"
           />

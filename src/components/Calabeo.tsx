@@ -5,7 +5,7 @@ interface CalabeoProps {
   size?: 'sm' | 'md' | 'lg' | 'xl';
   animated?: boolean;
   className?: string;
-  variant?: 'purple' | 'gradient' | 'multicolor';
+  variant?: 'purple' | 'gradient' | 'multicolor' | 'spiro';
 }
 
 const Calabeo = ({ 
@@ -29,6 +29,7 @@ const Calabeo = ({
       case 'purple': return '/lovable-uploads/6538196a-8eec-4579-a9b5-e02aa0fcc292.png';
       case 'gradient': return '/lovable-uploads/54ca9832-cba8-4b53-b564-690fc09f0414.png';
       case 'multicolor': return '/lovable-uploads/5aed3fda-aea9-413b-9c6b-d07277dea5e1.png';
+      case 'spiro': return '/lovable-uploads/4ae18c97-f220-4a36-82c7-34d563cfb97b.png';
       default: return '/lovable-uploads/6538196a-8eec-4579-a9b5-e02aa0fcc292.png';
     }
   };

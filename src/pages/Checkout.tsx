@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { useSearchParams, Link, useNavigate } from 'react-router-dom';
 import { ArrowLeft, CreditCard, Heart, Shield, Check, Minus, Plus, MapPin, Truck } from 'lucide-react';

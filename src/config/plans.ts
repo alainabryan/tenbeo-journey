@@ -11,6 +11,7 @@ interface BasePlan {
   earlyBird: boolean;
   buttonText: string;
   contactSales: boolean;
+  unavailableFeatures: string[];
 }
 
 // Define a complete plan interface with all possible properties
@@ -18,7 +19,6 @@ export interface Plan extends BasePlan {
   sensorPrice?: number;
   monthlyPrice?: number;
   freeMonths?: number;
-  unavailableFeatures?: string[];
   spotsLeft?: number;
   totalSpots?: number;
 }
@@ -108,8 +108,12 @@ export const plans = {
     earlyBird: false,
     buttonText: "Contact Sales",
     contactSales: true,
-    // Adding empty arrays for type safety
-    unavailableFeatures: []
+    unavailableFeatures: [],
+    sensorPrice: undefined,
+    monthlyPrice: undefined,
+    freeMonths: undefined,
+    spotsLeft: undefined,
+    totalSpots: undefined
   }
 };
 

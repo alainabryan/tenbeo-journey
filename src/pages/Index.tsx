@@ -9,6 +9,7 @@ import Pricing from '@/components/Pricing';
 import EnterpriseSection from '@/components/EnterpriseSection';
 import FAQs from '@/components/FAQs';
 import Footer from '@/components/Footer';
+import PreOrderCTA from '@/components/PreOrderCTA';
 
 const Index = () => {
   // Add smooth scrolling for all anchor links
@@ -64,10 +65,14 @@ const Index = () => {
       <main>
         <Hero />
         <About />
+        {/* Added PreOrderCTA between About and HowItWorks as requested */}
+        <PreOrderCTA variant="primary" showHeartbeat={true} />
         <HowItWorks />
         <Technology />
         <Pricing />
         <EnterpriseSection />
+        {/* Added PreOrderCTA between EnterpriseSection and FAQs as requested */}
+        <PreOrderCTA variant="secondary" showHeartbeat={false} />
         <FAQs />
       </main>
       <Footer />

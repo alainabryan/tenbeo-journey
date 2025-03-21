@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 import { ArrowDown, Heart, Lock, Shield } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
 
 const Hero = () => {
   const [userCount, setUserCount] = useState(1530);
@@ -36,27 +37,21 @@ const Hero = () => {
       
       <div className="container mx-auto px-4 md:px-8 z-10 flex flex-col items-center">
         <div className="flex items-center gap-4 mb-4">
-          <div className="inline-block px-4 py-1 rounded-full bg-tenbeo/10 border border-tenbeo/20 text-sm">
-            <span className="text-tenbeo-light">Pre-order now available</span>
-          </div>
-          
-          {/* Animated element moved from elsewhere in the component */}
-          <div className="relative h-8 w-8">
-            <div className="w-8 h-8 rounded-full bg-tenbeo/20 animate-pulse-slow"></div>
+          {/* Repositioned heartbeat element to the left */}
+          <div className="relative h-10 w-10">
+            <div className="w-10 h-10 rounded-full bg-tenbeo/30 animate-pulse-slow"></div>
             <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-4 h-4 rounded-full bg-tenbeo/40 animate-heartbeat"></div>
+              <div className="w-6 h-6 rounded-full bg-tenbeo/60 animate-heartbeat"></div>
             </div>
           </div>
+          
+          {/* Made pre-order now button clickable */}
+          <Link to="/checkout" className="inline-block px-4 py-1 rounded-full bg-tenbeo/20 border border-tenbeo/30 text-sm hover:bg-tenbeo/30 transition-colors">
+            <span className="text-tenbeo-light">Pre-order now available</span>
+          </Link>
         </div>
         
-        {/* Featured heartbeat animation */}
-        <div className="mb-6 relative">
-          <div className="w-16 h-16 mx-auto rounded-full bg-tenbeo flex items-center justify-center">
-            <span className="animate-heartbeat inline-block w-10 h-10 rounded-full bg-tenbeo-light"></span>
-          </div>
-          <div className="w-24 h-24 rounded-full bg-tenbeo/30 absolute -top-4 -left-4 animate-pulse-slow"></div>
-          <div className="w-20 h-20 rounded-full bg-tenbeo/20 absolute -bottom-3 -right-3 animate-pulse-slow" style={{ animationDelay: '1.5s' }}></div>
-        </div>
+        {/* Removed the featured heartbeat animation that was here */}
         
         <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-center mb-6 leading-tight tracking-tight">
           Authenticate with your <br className="hidden md:block" />

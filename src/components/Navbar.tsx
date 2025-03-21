@@ -1,6 +1,8 @@
 
 import { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   const [activeSection, setActiveSection] = useState('hero');
@@ -62,6 +64,7 @@ const Navbar = () => {
       scrolled ? "py-4 glassmorphism shadow-md" : "py-6 bg-transparent"
     )}>
       <div className="container mx-auto flex justify-between items-center px-4">
+        {/* Logo - Left aligned */}
         <a 
           href="#hero" 
           className="text-2xl font-bold text-foreground flex items-center group"
@@ -77,7 +80,8 @@ const Navbar = () => {
           />
         </a>
         
-        <div className="hidden md:flex space-x-1 bg-card/80 backdrop-blur-sm rounded-full px-2 py-1">
+        {/* Navigation - Centered */}
+        <div className="hidden md:flex space-x-1 bg-card/80 backdrop-blur-sm rounded-full px-2 py-1 mx-auto">
           {sections.map((section) => (
             <a
               key={section.id}
@@ -95,6 +99,15 @@ const Navbar = () => {
             </a>
           ))}
         </div>
+        
+        {/* Pre-order button - Right aligned */}
+        <Link to="/checkout" className="hidden md:block">
+          <Button 
+            className="bg-tenbeo hover:bg-tenbeo-dark text-white font-medium px-6 py-2"
+          >
+            Pre-order Now
+          </Button>
+        </Link>
         
         <div className="md:hidden">
           {/* Mobile menu button would go here */}

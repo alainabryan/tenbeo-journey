@@ -25,7 +25,7 @@ const PricingCard = ({
     <div className={cn(
       "pricing-card flex flex-col h-full animate-fade-in relative bg-background/50 backdrop-blur-sm rounded-xl border border-border p-6 shadow-sm",
       highlighted && "border-tenbeo",
-      earlyBird && "border-amber-400"
+      earlyBird && "border-amber-300/50" // Using a less distracting yellow
     )}>
       {highlighted && (
         <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-tenbeo px-4 py-1 rounded-full text-white text-sm font-medium">
@@ -34,7 +34,7 @@ const PricingCard = ({
       )}
       
       {earlyBird && spotsLeft > 0 && (
-        <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-amber-500 px-4 py-1 rounded-full text-white text-sm font-medium">
+        <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-amber-500 px-4 py-1 rounded-full text-white text-sm font-medium z-10">
           Limited Offer: {spotsLeft}/{totalSpots} spots
         </div>
       )}

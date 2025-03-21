@@ -1,5 +1,5 @@
 
-import { Shield, Server, Users, Building } from 'lucide-react';
+import { Shield, Server, Users } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 
@@ -34,50 +34,38 @@ const EnterpriseSection = () => {
           <div className="lg:col-span-5">
             <div className="space-y-4">
               <Card className="glassmorphism">
-                <CardContent className="pt-6">
-                  <div className="mb-4">
-                    <Shield className="h-12 w-12 text-tenbeo-light" />
+                <CardContent className="p-4 flex items-center gap-4">
+                  <Shield className="h-16 w-16 text-tenbeo-light flex-shrink-0" />
+                  <div>
+                    <h4 className="text-xl font-semibold mb-2">Enhanced Security</h4>
+                    <p className="text-muted-foreground">
+                      Military-grade biometric authentication that eliminates password vulnerabilities.
+                    </p>
                   </div>
-                  <h4 className="text-xl font-semibold mb-2">Enhanced Security</h4>
-                  <p className="text-muted-foreground">
-                    Military-grade biometric authentication that eliminates password vulnerabilities.
-                  </p>
                 </CardContent>
               </Card>
               
               <Card className="glassmorphism">
-                <CardContent className="pt-6">
-                  <div className="mb-4">
-                    <Server className="h-12 w-12 text-tenbeo-light" />
+                <CardContent className="p-4 flex items-center gap-4">
+                  <Server className="h-16 w-16 text-tenbeo-light flex-shrink-0" />
+                  <div>
+                    <h4 className="text-xl font-semibold mb-2">Custom Integration</h4>
+                    <p className="text-muted-foreground">
+                      Seamless integration with your existing systems, including SSO solutions.
+                    </p>
                   </div>
-                  <h4 className="text-xl font-semibold mb-2">Custom Integration</h4>
-                  <p className="text-muted-foreground">
-                    Seamless integration with your existing systems, including SSO solutions.
-                  </p>
                 </CardContent>
               </Card>
               
               <Card className="glassmorphism">
-                <CardContent className="pt-6">
-                  <div className="mb-4">
-                    <Users className="h-12 w-12 text-tenbeo-light" />
+                <CardContent className="p-4 flex items-center gap-4">
+                  <Users className="h-16 w-16 text-tenbeo-light flex-shrink-0" />
+                  <div>
+                    <h4 className="text-xl font-semibold mb-2">Productivity Boost</h4>
+                    <p className="text-muted-foreground">
+                      Eliminate password resets and streamline authentication for all employees.
+                    </p>
                   </div>
-                  <h4 className="text-xl font-semibold mb-2">Productivity Boost</h4>
-                  <p className="text-muted-foreground">
-                    Eliminate password resets and streamline authentication for all employees.
-                  </p>
-                </CardContent>
-              </Card>
-              
-              <Card className="glassmorphism">
-                <CardContent className="pt-6">
-                  <div className="mb-4">
-                    <Building className="h-12 w-12 text-tenbeo-light" />
-                  </div>
-                  <h4 className="text-xl font-semibold mb-2">Scalable Solution</h4>
-                  <p className="text-muted-foreground">
-                    Grows with your organization, from small teams to large enterprises.
-                  </p>
                 </CardContent>
               </Card>
             </div>

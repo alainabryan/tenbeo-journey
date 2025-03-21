@@ -2,17 +2,23 @@
 import { Check, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
 
 const PricingCard = ({ 
   title, 
-  price, 
+  sensorPrice,
+  monthlyPrice,
   description, 
   features, 
   highlighted = false, 
   buttonText = "Pre-order now",
   unavailableFeatures = [],
   contactSales = false,
-  productId = ""
+  productId = "",
+  earlyBird = false,
+  freeMonths = 0,
+  spotsLeft = 0,
+  totalSpots = 0
 }) => {
   return (
     <div className={cn(
@@ -25,16 +31,31 @@ const PricingCard = ({
         </div>
       )}
       
+      {earlyBird && spotsLeft > 0 && (
+        <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-amber-500 px-4 py-1 rounded-full text-white text-sm font-medium">
+          Limited Offer: {spotsLeft}/{totalSpots} spots left
+        </div>
+      )}
+      
       <div className="mb-6">
         <h3 className="text-2xl font-bold mb-2">{title}</h3>
         <p className="text-muted-foreground">{description}</p>
       </div>
       
       <div className="mb-6">
-        <div className="flex items-end">
-          <span className="text-4xl font-bold">${price}</span>
-          {price > 0 && <span className="text-muted-foreground ml-1 mb-1">/device</span>}
+        <div className="flex items-end mb-2">
+          <span className="text-4xl font-bold">{sensorPrice}€</span>
+          <span className="text-muted-foreground ml-1 mb-1">one-time</span>
         </div>
+        <div className="flex items-end">
+          <span className="text-2xl font-bold">{monthlyPrice}€</span>
+          <span className="text-muted-foreground ml-1 mb-1">/month</span>
+        </div>
+        {freeMonths > 0 && (
+          <div className="mt-2 text-tenbeo-light font-medium">
+            {freeMonths} {freeMonths === 1 ? "month" : "months"} free
+          </div>
+        )}
       </div>
       
       <div className="flex-grow mb-8">
@@ -79,6 +100,12 @@ const PricingCard = ({
 };
 
 const Pricing = () => {
+  // State for early bird spots
+  const [earlyBirdSpots, setEarlyBirdSpots] = useState({
+    total: 100,
+    remaining: 92 // Arbitrary number for demonstration
+  });
+
   return (
     <section id="pricing" className="section-container relative overflow-hidden">
       <div className="absolute inset-0 z-0">
@@ -96,27 +123,33 @@ const Pricing = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <PricingCard
-            title="Standard"
-            price={99}
-            description="Perfect for individuals seeking secure authentication"
+            title="Early Bird"
+            sensorPrice={80} // 20% off 100€
+            monthlyPrice={5.99}
+            description="Limited time offer with special benefits"
             features={[
               "Tenbeo hardware sensor",
               "Browser extension",
               "Unlimited authentications",
               "Email verification",
-              "Biometric login to websites"
+              "Biometric login to websites",
+              "End-to-end email encryption",
+              "Support for up to 3 devices"
             ]}
             unavailableFeatures={[
-              "Email encryption",
-              "Multi-device support",
               "API access"
             ]}
-            productId="standard"
+            productId="earlybird"
+            earlyBird={true}
+            freeMonths={3}
+            spotsLeft={earlyBirdSpots.remaining}
+            totalSpots={earlyBirdSpots.total}
           />
           
           <PricingCard
             title="Premium"
-            price={149}
+            sensorPrice={100}
+            monthlyPrice={5.99}
             description="Enhanced security for professionals and power users"
             features={[
               "Tenbeo hardware sensor",
@@ -132,11 +165,13 @@ const Pricing = () => {
             ]}
             highlighted={true}
             productId="premium"
+            freeMonths={1}
           />
           
           <PricingCard
             title="Enterprise"
-            price={0}
+            sensorPrice={0}
+            monthlyPrice={0}
             description="Custom security solutions for businesses of all sizes"
             features={[
               "Custom number of Tenbeo sensors",

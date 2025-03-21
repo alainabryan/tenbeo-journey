@@ -1,26 +1,42 @@
 
 import { useState, useEffect } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
-import { ArrowLeft, CreditCard, Heart, Shield, Check } from 'lucide-react';
+import { ArrowLeft, CreditCard, Heart, Shield, Check, Minus, Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { 
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Input } from "@/components/ui/input";
+import { useToast } from "@/components/ui/use-toast";
 
 const products = {
-  standard: {
-    title: "Standard",
-    price: 99,
-    description: "Perfect for individuals seeking secure authentication",
+  earlybird: {
+    title: "Early Bird",
+    sensorPrice: 80, // 20% off regular price
+    monthlyPrice: 5.99,
+    description: "Limited time offer with special benefits",
+    freeMonths: 3,
     features: [
       "Tenbeo hardware sensor",
       "Browser extension",
       "Unlimited authentications",
       "Email verification",
-      "Biometric login to websites"
+      "Biometric login to websites",
+      "End-to-end email encryption",
+      "Support for up to 3 devices"
     ]
   },
   premium: {
     title: "Premium",
-    price: 149,
+    sensorPrice: 100,
+    monthlyPrice: 5.99,
     description: "Enhanced security for professionals and power users",
+    freeMonths: 1,
     features: [
       "Tenbeo hardware sensor",
       "Browser extension",
@@ -34,9 +50,10 @@ const products = {
 };
 
 const Checkout = () => {
+  const { toast } = useToast();
   const [searchParams] = useSearchParams();
-  const productId = searchParams.get('product') || 'standard';
-  const product = products[productId] || products.standard;
+  const productId = searchParams.get('product') || 'premium';
+  const product = products[productId] || products.premium;
   
   const [formData, setFormData] = useState({
     name: '',
@@ -47,7 +64,9 @@ const Checkout = () => {
     country: '',
     cardNumber: '',
     cardExpiry: '',
-    cardCvc: ''
+    cardCvc: '',
+    quantity: 1,
+    billingCycle: 'monthly'
   });
   
   const [stage, setStage] = useState('details'); // 'details', 'payment', 'confirmation'
@@ -57,21 +76,47 @@ const Checkout = () => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
   
+  const handleSelectChange = (name, value) => {
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleQuantityChange = (action) => {
+    if (action === 'increase') {
+      setFormData(prev => ({ ...prev, quantity: prev.quantity + 1 }));
+    } else if (action === 'decrease' && formData.quantity > 1) {
+      setFormData(prev => ({ ...prev, quantity: prev.quantity - 1 }));
+    }
+  };
+  
   const handleSubmitDetails = (e) => {
     e.preventDefault();
     setStage('payment');
+    window.scrollTo(0, 0);
   };
   
   const handleSubmitPayment = (e) => {
     e.preventDefault();
     // In a real application, you would process payment here
-    setStage('confirmation');
+    toast({
+      title: "Order Processing",
+      description: "Your order is being processed. Please wait a moment.",
+    });
+    
+    setTimeout(() => {
+      setStage('confirmation');
+      window.scrollTo(0, 0);
+    }, 1500);
   };
 
   useEffect(() => {
     // Scroll to top when component mounts
     window.scrollTo(0, 0);
   }, []);
+
+  // Calculate totals
+  const sensorTotal = product.sensorPrice * formData.quantity;
+  const monthlyTotal = product.monthlyPrice;
+  const todayTotal = sensorTotal; // Only charging for sensors today
   
   return (
     <div className="min-h-screen bg-background">
@@ -93,90 +138,86 @@ const Checkout = () => {
                   <div className="space-y-4">
                     <div>
                       <label htmlFor="name" className="block text-sm font-medium mb-1">Full Name</label>
-                      <input
+                      <Input
                         type="text"
                         id="name"
                         name="name"
                         value={formData.name}
                         onChange={handleInputChange}
                         required
-                        className="w-full px-4 py-2 bg-background border border-border rounded-lg focus:ring-1 focus:ring-tenbeo focus:border-tenbeo outline-none transition"
                       />
                     </div>
                     
                     <div>
                       <label htmlFor="email" className="block text-sm font-medium mb-1">Email Address</label>
-                      <input
+                      <Input
                         type="email"
                         id="email"
                         name="email"
                         value={formData.email}
                         onChange={handleInputChange}
                         required
-                        className="w-full px-4 py-2 bg-background border border-border rounded-lg focus:ring-1 focus:ring-tenbeo focus:border-tenbeo outline-none transition"
                       />
                     </div>
                     
                     <div>
                       <label htmlFor="address" className="block text-sm font-medium mb-1">Shipping Address</label>
-                      <input
+                      <Input
                         type="text"
                         id="address"
                         name="address"
                         value={formData.address}
                         onChange={handleInputChange}
                         required
-                        className="w-full px-4 py-2 bg-background border border-border rounded-lg focus:ring-1 focus:ring-tenbeo focus:border-tenbeo outline-none transition"
                       />
                     </div>
                     
                     <div className="grid grid-cols-2 gap-4">
                       <div>
                         <label htmlFor="city" className="block text-sm font-medium mb-1">City</label>
-                        <input
+                        <Input
                           type="text"
                           id="city"
                           name="city"
                           value={formData.city}
                           onChange={handleInputChange}
                           required
-                          className="w-full px-4 py-2 bg-background border border-border rounded-lg focus:ring-1 focus:ring-tenbeo focus:border-tenbeo outline-none transition"
                         />
                       </div>
                       
                       <div>
                         <label htmlFor="zipCode" className="block text-sm font-medium mb-1">ZIP Code</label>
-                        <input
+                        <Input
                           type="text"
                           id="zipCode"
                           name="zipCode"
                           value={formData.zipCode}
                           onChange={handleInputChange}
                           required
-                          className="w-full px-4 py-2 bg-background border border-border rounded-lg focus:ring-1 focus:ring-tenbeo focus:border-tenbeo outline-none transition"
                         />
                       </div>
                     </div>
                     
                     <div>
                       <label htmlFor="country" className="block text-sm font-medium mb-1">Country</label>
-                      <select
-                        id="country"
-                        name="country"
-                        value={formData.country}
-                        onChange={handleInputChange}
-                        required
-                        className="w-full px-4 py-2 bg-background border border-border rounded-lg focus:ring-1 focus:ring-tenbeo focus:border-tenbeo outline-none transition"
+                      <Select 
+                        name="country" 
+                        value={formData.country} 
+                        onValueChange={(value) => handleSelectChange('country', value)}
                       >
-                        <option value="">Select Country</option>
-                        <option value="US">United States</option>
-                        <option value="CA">Canada</option>
-                        <option value="UK">United Kingdom</option>
-                        <option value="AU">Australia</option>
-                        <option value="JP">Japan</option>
-                        <option value="DE">Germany</option>
-                        <option value="FR">France</option>
-                      </select>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select Country" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="US">United States</SelectItem>
+                          <SelectItem value="CA">Canada</SelectItem>
+                          <SelectItem value="UK">United Kingdom</SelectItem>
+                          <SelectItem value="AU">Australia</SelectItem>
+                          <SelectItem value="JP">Japan</SelectItem>
+                          <SelectItem value="DE">Germany</SelectItem>
+                          <SelectItem value="FR">France</SelectItem>
+                        </SelectContent>
+                      </Select>
                     </div>
                   </div>
                   
@@ -197,7 +238,7 @@ const Checkout = () => {
                     <div>
                       <label htmlFor="cardNumber" className="block text-sm font-medium mb-1">Card Number</label>
                       <div className="relative">
-                        <input
+                        <Input
                           type="text"
                           id="cardNumber"
                           name="cardNumber"
@@ -205,7 +246,7 @@ const Checkout = () => {
                           value={formData.cardNumber}
                           onChange={handleInputChange}
                           required
-                          className="w-full pl-10 pr-4 py-2 bg-background border border-border rounded-lg focus:ring-1 focus:ring-tenbeo focus:border-tenbeo outline-none transition"
+                          className="pl-10"
                         />
                         <CreditCard className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                       </div>
@@ -214,7 +255,7 @@ const Checkout = () => {
                     <div className="grid grid-cols-2 gap-4">
                       <div>
                         <label htmlFor="cardExpiry" className="block text-sm font-medium mb-1">Expiry Date</label>
-                        <input
+                        <Input
                           type="text"
                           id="cardExpiry"
                           name="cardExpiry"
@@ -222,13 +263,12 @@ const Checkout = () => {
                           value={formData.cardExpiry}
                           onChange={handleInputChange}
                           required
-                          className="w-full px-4 py-2 bg-background border border-border rounded-lg focus:ring-1 focus:ring-tenbeo focus:border-tenbeo outline-none transition"
                         />
                       </div>
                       
                       <div>
                         <label htmlFor="cardCvc" className="block text-sm font-medium mb-1">CVC</label>
-                        <input
+                        <Input
                           type="text"
                           id="cardCvc"
                           name="cardCvc"
@@ -236,7 +276,6 @@ const Checkout = () => {
                           value={formData.cardCvc}
                           onChange={handleInputChange}
                           required
-                          className="w-full px-4 py-2 bg-background border border-border rounded-lg focus:ring-1 focus:ring-tenbeo focus:border-tenbeo outline-none transition"
                         />
                       </div>
                     </div>
@@ -272,7 +311,10 @@ const Checkout = () => {
                   </div>
                 </div>
                 <h2 className="text-2xl font-bold mb-2">Thank You for Your Order!</h2>
-                <p className="text-muted-foreground mb-6">Your Tenbeo device will be shipped within 2-3 business days.</p>
+                <p className="text-muted-foreground mb-6">
+                  Your {formData.quantity} Tenbeo {formData.quantity === 1 ? 'sensor' : 'sensors'} will be shipped within 2-3 business days.
+                </p>
+                <p className="mb-2">Your subscription will start after your {product.freeMonths} {product.freeMonths === 1 ? 'month' : 'months'} free trial.</p>
                 <p className="mb-4">Order confirmation has been sent to <span className="font-semibold">{formData.email}</span></p>
                 <div className="mt-6">
                   <Link to="/">
@@ -302,32 +344,68 @@ const Checkout = () => {
                 </div>
               </div>
               
+              <div className="mb-4">
+                <div className="flex justify-between items-center mb-2">
+                  <label className="font-medium">Sensor Quantity</label>
+                  <div className="flex items-center space-x-2">
+                    <Button 
+                      onClick={() => handleQuantityChange('decrease')} 
+                      variant="outline" 
+                      size="icon" 
+                      className="h-8 w-8 rounded-full"
+                      disabled={formData.quantity <= 1}
+                    >
+                      <Minus className="h-3 w-3" />
+                    </Button>
+                    <span className="w-8 text-center">{formData.quantity}</span>
+                    <Button 
+                      onClick={() => handleQuantityChange('increase')} 
+                      variant="outline" 
+                      size="icon" 
+                      className="h-8 w-8 rounded-full"
+                    >
+                      <Plus className="h-3 w-3" />
+                    </Button>
+                  </div>
+                </div>
+              </div>
+              
               <ul className="space-y-2 mb-6">
+                <li className="text-sm font-medium">Subscription includes:</li>
                 {product.features.map((feature, index) => (
                   <li key={index} className="flex items-start text-sm">
                     <Check className="w-4 h-4 text-tenbeo-light mt-0.5 mr-2 flex-shrink-0" />
                     <span>{feature}</span>
                   </li>
                 ))}
+                <li className="flex items-start text-sm font-medium text-tenbeo-light mt-2">
+                  <Check className="w-4 h-4 text-tenbeo-light mt-0.5 mr-2 flex-shrink-0" />
+                  <span>{product.freeMonths} {product.freeMonths === 1 ? 'month' : 'months'} free subscription</span>
+                </li>
               </ul>
               
               <div className="border-t border-border pt-4 mb-4">
                 <div className="flex justify-between mb-2">
-                  <span className="text-muted-foreground">Subtotal</span>
-                  <span>${product.price.toFixed(2)}</span>
+                  <span className="text-muted-foreground">Sensor ({formData.quantity})</span>
+                  <span>{sensorTotal.toFixed(2)}€</span>
                 </div>
                 <div className="flex justify-between mb-2">
                   <span className="text-muted-foreground">Shipping</span>
-                  <span>$0.00</span>
+                  <span>0.00€</span>
                 </div>
-                <div className="flex justify-between font-semibold text-lg">
-                  <span>Total</span>
-                  <span>${product.price.toFixed(2)}</span>
+                <div className="flex justify-between mb-2">
+                  <span className="text-muted-foreground">Subscription (after free period)</span>
+                  <span>{monthlyTotal.toFixed(2)}€/month</span>
+                </div>
+                <div className="flex justify-between font-semibold text-lg mt-4">
+                  <span>Total Today</span>
+                  <span>{todayTotal.toFixed(2)}€</span>
                 </div>
               </div>
               
               <div className="text-sm text-muted-foreground">
                 <p>Your order will be shipped within 2-3 business days after payment confirmation.</p>
+                <p className="mt-2">You will not be charged for your subscription until after your {product.freeMonths} {product.freeMonths === 1 ? 'month' : 'months'} free period.</p>
               </div>
             </div>
           </div>

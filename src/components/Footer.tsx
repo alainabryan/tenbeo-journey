@@ -6,12 +6,10 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
           {/* Logo column - takes up more space */}
           <div className="md:col-span-6 lg:col-span-6">
-            <div className="flex flex-col">
+            <div className="flex flex-col my-0 py-[37px]">
               <img src="/lovable-uploads/896fc80b-1af9-4e22-9117-ccf475bfa0c0.png" alt="Tenbeo" className="h-auto max-w-xs mb-4" />
-              <p className="text-muted-foreground text-[11px] xs:text-xs sm:text-sm md:text-sm lg:text-sm xl:text-base mb-1">Revolutionizing digital security with heartbeat-based biometric authentication.</p>
-              <p className="text-muted-foreground text-[11px] xs:text-xs sm:text-sm md:text-sm lg:text-sm xl:text-base">
-                Our mission is to create a more secure digital world, one heartbeat at a time.
-              </p>
+              <p className="text-muted-foreground text-[11px] xs:text-xs sm:text-sm md:text-sm lg:text-sm xl:text-base mb-1 my-0 py-[12px]">Revolutionizing digital security with heartbeat-based biometric authentication.</p>
+              
             </div>
           </div>
           

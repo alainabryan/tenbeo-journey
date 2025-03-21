@@ -1,5 +1,6 @@
+
 import { useEffect, useState } from 'react';
-import { ArrowDown } from 'lucide-react';
+import { ArrowDown, Heart, HeartPulse } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 
@@ -94,9 +95,10 @@ const Hero = () => {
             </Button>
           </Link>
           
-          <a href="#about" className="inline-flex items-center justify-center h-12 px-8 rounded-full border border-input bg-background hover:bg-accent hover:text-accent-foreground">
-            Learn More
-          </a>
+          <div className="flex items-center justify-center h-12 px-8 rounded-full border border-tenbeo bg-background hover:bg-accent hover:text-accent-foreground">
+            <HeartPulse className="mr-2 text-tenbeo animate-pulse-slow" />
+            <span>Pre-order now available</span>
+          </div>
         </div>
         
         <div className="flex gap-16 my-4 glassmorphism px-8 py-4 rounded-full">

@@ -2,25 +2,37 @@
 import { Check, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
 import { Button } from '@/components/ui/button';
+import { plans, Plan } from '@/config/plans';
 
+// PricingCard component accepts a Plan object and any overrides
 const PricingCard = ({ 
-  title, 
-  sensorPrice,
-  monthlyPrice,
-  description, 
-  features, 
-  highlighted = false, 
-  buttonText = "Pre-order now",
-  unavailableFeatures = [],
-  contactSales = false,
-  productId = "",
-  earlyBird = false,
-  freeMonths = 0,
-  spotsLeft = 0,
-  totalSpots = 0
+  plan,
+  spotsLeftOverride,
+}: { 
+  plan: Plan, 
+  spotsLeftOverride?: number 
 }) => {
+  const {
+    title,
+    sensorPrice,
+    monthlyPrice,
+    description,
+    features,
+    highlighted = false,
+    buttonText = "Pre-order now",
+    unavailableFeatures = [],
+    contactSales = false,
+    id: productId = "",
+    earlyBird = false,
+    freeMonths = 0,
+    spotsLeft = 0,
+    totalSpots = 0
+  } = plan;
+
+  // Use the override value if provided
+  const currentSpotsLeft = spotsLeftOverride !== undefined ? spotsLeftOverride : spotsLeft;
+
   return (
     <div className={cn(
       "pricing-card flex flex-col h-full animate-fade-in relative bg-background/50 backdrop-blur-sm rounded-xl border border-border p-6 shadow-sm",
@@ -33,9 +45,9 @@ const PricingCard = ({
         </div>
       )}
       
-      {earlyBird && spotsLeft > 0 && (
+      {earlyBird && currentSpotsLeft > 0 && (
         <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-amber-500 px-4 py-1 rounded-full text-white text-sm font-medium z-10">
-          {spotsLeft}/{totalSpots} spots
+          {currentSpotsLeft}/{totalSpots} spots
         </div>
       )}
       
@@ -45,14 +57,18 @@ const PricingCard = ({
       </div>
       
       <div className="mb-6">
-        <div className="flex items-end mb-2">
-          <span className="text-4xl font-bold">{sensorPrice}€</span>
-          <span className="text-muted-foreground ml-1 mb-1">one-time</span>
-        </div>
-        <div className="flex items-end">
-          <span className="text-2xl font-bold">{monthlyPrice}€</span>
-          <span className="text-muted-foreground ml-1 mb-1">/month</span>
-        </div>
+        {sensorPrice && (
+          <div className="flex items-end mb-2">
+            <span className="text-4xl font-bold">{sensorPrice}€</span>
+            <span className="text-muted-foreground ml-1 mb-1">one-time</span>
+          </div>
+        )}
+        {monthlyPrice && (
+          <div className="flex items-end">
+            <span className="text-2xl font-bold">{monthlyPrice}€</span>
+            <span className="text-muted-foreground ml-1 mb-1">/month</span>
+          </div>
+        )}
         {freeMonths > 0 && (
           <div className="mt-2 text-tenbeo-light font-medium">
             {freeMonths} {freeMonths === 1 ? "month" : "months"} free
@@ -105,11 +121,8 @@ const PricingCard = ({
 };
 
 const Pricing = () => {
-  // State for early bird spots
-  const [earlyBirdSpots, setEarlyBirdSpots] = useState({
-    total: 100,
-    remaining: 92 // Arbitrary number for demonstration
-  });
+  // We now only track the number of spots remaining for early bird
+  const earlyBirdSpotsRemaining = 92;
 
   return (
     <section id="pricing" className="section-container relative overflow-hidden">
@@ -127,65 +140,12 @@ const Pricing = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <PricingCard
-            title="Early Bird"
-            sensorPrice={80} // 20% off 100€
-            monthlyPrice={5.99}
-            description="Limited time offer with special benefits"
-            features={[
-              "Tenbeo hardware sensor",
-              "Browser extension",
-              "Unlimited authentications",
-              "Email verification",
-              "Verify received emails",
-              "Send humanity-verified emails",
-              "Send and receive encrypted emails"
-            ]}
-            productId="earlybird"
-            earlyBird={true}
-            freeMonths={6}
-            spotsLeft={earlyBirdSpots.remaining}
-            totalSpots={earlyBirdSpots.total}
+          <PricingCard 
+            plan={plans.earlybird} 
+            spotsLeftOverride={earlyBirdSpotsRemaining} 
           />
-          
-          <PricingCard
-            title="Standard"
-            sensorPrice={100}
-            monthlyPrice={3.99}
-            description="Essential security for individual users"
-            features={[
-              "Tenbeo hardware sensor",
-              "Browser extension",
-              "Unlimited authentications",
-              "Email verification",
-              "Verify received emails",
-              "Send humanity-verified emails"
-            ]}
-            unavailableFeatures={[
-              "Send and receive encrypted emails"
-            ]}
-            productId="standard"
-            freeMonths={1}
-          />
-          
-          <PricingCard
-            title="Premium"
-            sensorPrice={100}
-            monthlyPrice={5.99}
-            description="Enhanced security for professionals and power users"
-            features={[
-              "Tenbeo hardware sensor",
-              "Browser extension",
-              "Unlimited authentications",
-              "Email verification",
-              "Verify received emails",
-              "Send humanity-verified emails",
-              "Send and receive encrypted emails"
-            ]}
-            highlighted={true}
-            productId="premium"
-            freeMonths={3}
-          />
+          <PricingCard plan={plans.standard} />
+          <PricingCard plan={plans.premium} />
         </div>
       </div>
     </section>

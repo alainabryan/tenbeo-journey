@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { useSearchParams, Link, useNavigate } from 'react-router-dom';
 import { ArrowLeft, CreditCard, Heart, Shield, Check, Minus, Plus, MapPin, Truck } from 'lucide-react';
@@ -13,61 +12,7 @@ import {
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
-
-const products = {
-  earlybird: {
-    title: "Early Bird",
-    sensorPrice: 80, // 20% off regular price
-    monthlyPrice: 5.99,
-    description: "Limited time offer with special benefits",
-    freeMonths: 3,
-    features: [
-      "Tenbeo hardware sensor",
-      "Browser extension",
-      "Unlimited authentications",
-      "Email verification",
-      "Verify received emails",
-      "Send humanity-verified emails",
-      "Send and receive encrypted emails",
-      "Support for up to 3 devices"
-    ],
-    spotsLeft: 92,
-    totalSpots: 100
-  },
-  standard: {
-    title: "Standard",
-    sensorPrice: 90,
-    monthlyPrice: 3.99,
-    description: "Essential security for individual users",
-    freeMonths: 0,
-    features: [
-      "Tenbeo hardware sensor",
-      "Browser extension",
-      "Unlimited authentications",
-      "Email verification",
-      "Verify received emails",
-      "Send humanity-verified emails",
-      "Support for up to 2 devices"
-    ]
-  },
-  premium: {
-    title: "Premium",
-    sensorPrice: 100,
-    monthlyPrice: 5.99,
-    description: "Enhanced security for professionals and power users",
-    freeMonths: 1,
-    features: [
-      "Tenbeo hardware sensor",
-      "Browser extension",
-      "Unlimited authentications",
-      "Email verification",
-      "Verify received emails",
-      "Send humanity-verified emails",
-      "Send and receive encrypted emails",
-      "Support for up to 3 devices"
-    ]
-  }
-};
+import { plans, PlanId } from '@/config/plans';
 
 // Shipping options
 const shippingOptions = [
@@ -82,10 +27,10 @@ const Checkout = () => {
   const [searchParams] = useSearchParams();
   const initialProductId = searchParams.get('product') || 'premium';
   
-  const [productId, setProductId] = useState(initialProductId);
+  const [productId, setProductId] = useState<PlanId>((initialProductId in plans ? initialProductId : 'premium') as PlanId);
   const [checkoutStep, setCheckoutStep] = useState('product'); // 'product', 'shipping', 'payment', 'confirmation'
   
-  const product = products[productId] || products.premium;
+  const product = plans[productId];
   
   const [formData, setFormData] = useState({
     name: '',
@@ -217,12 +162,12 @@ const Checkout = () => {
                     <Check className="w-5 h-5 text-tenbeo-light mt-0.5 mr-2 flex-shrink-0" />
                     <span>Send humanity-verified emails</span>
                   </li>
-                  {(productId === 'premium' || productId === 'earlybird') && (
+                  {productId === 'premium' || productId === 'earlybird' ? (
                     <li className="flex items-start">
                       <Check className="w-5 h-5 text-tenbeo-light mt-0.5 mr-2 flex-shrink-0" />
                       <span>Send and receive encrypted emails</span>
                     </li>
-                  )}
+                  ) : null}
                 </ul>
               </div>
               
@@ -254,13 +199,13 @@ const Checkout = () => {
                       : 'border-border hover:border-muted-foreground'}`}
                   >
                     <div className="text-sm font-medium">Early Bird</div>
-                    <div className="text-xs text-muted-foreground">80€ - 3 months free</div>
+                    <div className="text-xs text-muted-foreground">80€ - 6 months free</div>
                     {productId === 'earlybird' && (
                       <Check className="absolute top-2 right-2 h-4 w-4 text-amber-500" />
                     )}
-                    {products.earlybird.spotsLeft > 0 && (
+                    {plans.earlybird.spotsLeft > 0 && (
                       <div className="mt-1 text-xs text-amber-500">
-                        {products.earlybird.spotsLeft}/{products.earlybird.totalSpots} spots left
+                        {plans.earlybird.spotsLeft}/{plans.earlybird.totalSpots} spots left
                       </div>
                     )}
                   </button>
@@ -272,7 +217,7 @@ const Checkout = () => {
                       : 'border-border hover:border-muted-foreground'}`}
                   >
                     <div className="text-sm font-medium">Standard</div>
-                    <div className="text-xs text-muted-foreground">90€</div>
+                    <div className="text-xs text-muted-foreground">100€ - 1 month free</div>
                     {productId === 'standard' && (
                       <Check className="absolute top-2 right-2 h-4 w-4 text-tenbeo" />
                     )}
@@ -285,7 +230,7 @@ const Checkout = () => {
                       : 'border-border hover:border-muted-foreground'}`}
                   >
                     <div className="text-sm font-medium">Premium</div>
-                    <div className="text-xs text-muted-foreground">100€ - 1 month free</div>
+                    <div className="text-xs text-muted-foreground">100€ - 3 months free</div>
                     {productId === 'premium' && (
                       <Check className="absolute top-2 right-2 h-4 w-4 text-tenbeo" />
                     )}

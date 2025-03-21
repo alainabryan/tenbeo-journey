@@ -135,18 +135,36 @@ const Pricing = () => {
               "Browser extension",
               "Unlimited authentications",
               "Email verification",
-              "Biometric login to websites",
-              "End-to-end email encryption",
+              "Verify received emails",
+              "Send humanity-verified emails",
+              "Send and receive encrypted emails",
               "Support for up to 3 devices"
-            ]}
-            unavailableFeatures={[
-              "API access"
             ]}
             productId="earlybird"
             earlyBird={true}
             freeMonths={3}
             spotsLeft={earlyBirdSpots.remaining}
             totalSpots={earlyBirdSpots.total}
+          />
+          
+          <PricingCard
+            title="Standard"
+            sensorPrice={90}
+            monthlyPrice={3.99}
+            description="Essential security for individual users"
+            features={[
+              "Tenbeo hardware sensor",
+              "Browser extension",
+              "Unlimited authentications",
+              "Email verification",
+              "Verify received emails",
+              "Send humanity-verified emails",
+              "Support for up to 2 devices"
+            ]}
+            unavailableFeatures={[
+              "Send and receive encrypted emails"
+            ]}
+            productId="standard"
           />
           
           <PricingCard
@@ -159,35 +177,14 @@ const Pricing = () => {
               "Browser extension",
               "Unlimited authentications",
               "Email verification",
-              "Biometric login to websites",
-              "End-to-end email encryption",
+              "Verify received emails",
+              "Send humanity-verified emails",
+              "Send and receive encrypted emails",
               "Support for up to 3 devices"
-            ]}
-            unavailableFeatures={[
-              "API access"
             ]}
             highlighted={true}
             productId="premium"
             freeMonths={1}
-          />
-          
-          <PricingCard
-            title="Enterprise"
-            sensorPrice={0}
-            monthlyPrice={0}
-            description="Custom security solutions for businesses of all sizes"
-            features={[
-              "Custom number of Tenbeo sensors",
-              "Browser extension",
-              "Unlimited authentications",
-              "Email verification & encryption",
-              "SSO integration",
-              "API access for custom integration",
-              "Dedicated account manager",
-              "Employee onboarding support"
-            ]}
-            buttonText="Contact Sales"
-            contactSales={true}
           />
         </div>
       </div>

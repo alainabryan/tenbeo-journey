@@ -24,7 +24,8 @@ const PricingCard = ({
   return (
     <div className={cn(
       "pricing-card flex flex-col h-full animate-fade-in relative bg-background/50 backdrop-blur-sm rounded-xl border border-border p-6 shadow-sm",
-      highlighted && "border-tenbeo"
+      highlighted && "border-tenbeo",
+      earlyBird && "border-amber-400"
     )}>
       {highlighted && (
         <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-tenbeo px-4 py-1 rounded-full text-white text-sm font-medium">
@@ -34,11 +35,11 @@ const PricingCard = ({
       
       {earlyBird && spotsLeft > 0 && (
         <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-amber-500 px-4 py-1 rounded-full text-white text-sm font-medium">
-          Limited Offer: {spotsLeft}/{totalSpots} spots left
+          Limited Offer: {spotsLeft}/{totalSpots} spots
         </div>
       )}
       
-      <div className="mb-6">
+      <div className="mb-6 mt-4">
         <h3 className="text-2xl font-bold mb-2">{title}</h3>
         <p className="text-muted-foreground">{description}</p>
       </div>
@@ -91,7 +92,8 @@ const PricingCard = ({
           <Button 
             className={cn(
               "w-full",
-              highlighted ? "bg-tenbeo hover:bg-tenbeo-dark text-white" : ""
+              highlighted ? "bg-tenbeo hover:bg-tenbeo-dark text-white" : "",
+              earlyBird ? "bg-amber-500 hover:bg-amber-600 text-white" : ""
             )}
           >
             {buttonText}

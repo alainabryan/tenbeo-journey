@@ -25,7 +25,7 @@ const PricingCard = ({
     <div className={cn(
       "pricing-card flex flex-col h-full animate-fade-in relative bg-background/50 backdrop-blur-sm rounded-xl border border-border p-6 shadow-sm",
       highlighted && "border-tenbeo",
-      earlyBird && "border-amber-300/50" // Using a less distracting yellow
+      earlyBird && "border-amber-300/50" // Less distracting yellow
     )}>
       {highlighted && (
         <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-tenbeo px-4 py-1 rounded-full text-white text-sm font-medium">
@@ -35,7 +35,7 @@ const PricingCard = ({
       
       {earlyBird && spotsLeft > 0 && (
         <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-amber-500 px-4 py-1 rounded-full text-white text-sm font-medium z-10">
-          Limited Offer: {spotsLeft}/{totalSpots} spots
+          {spotsLeft}/{totalSpots} spots
         </div>
       )}
       
@@ -139,19 +139,18 @@ const Pricing = () => {
               "Email verification",
               "Verify received emails",
               "Send humanity-verified emails",
-              "Send and receive encrypted emails",
-              "Support for up to 3 devices"
+              "Send and receive encrypted emails"
             ]}
             productId="earlybird"
             earlyBird={true}
-            freeMonths={3}
+            freeMonths={6}
             spotsLeft={earlyBirdSpots.remaining}
             totalSpots={earlyBirdSpots.total}
           />
           
           <PricingCard
             title="Standard"
-            sensorPrice={90}
+            sensorPrice={100}
             monthlyPrice={3.99}
             description="Essential security for individual users"
             features={[
@@ -160,13 +159,13 @@ const Pricing = () => {
               "Unlimited authentications",
               "Email verification",
               "Verify received emails",
-              "Send humanity-verified emails",
-              "Support for up to 2 devices"
+              "Send humanity-verified emails"
             ]}
             unavailableFeatures={[
               "Send and receive encrypted emails"
             ]}
             productId="standard"
+            freeMonths={1}
           />
           
           <PricingCard
@@ -181,12 +180,11 @@ const Pricing = () => {
               "Email verification",
               "Verify received emails",
               "Send humanity-verified emails",
-              "Send and receive encrypted emails",
-              "Support for up to 3 devices"
+              "Send and receive encrypted emails"
             ]}
             highlighted={true}
             productId="premium"
-            freeMonths={1}
+            freeMonths={3}
           />
         </div>
       </div>

@@ -35,7 +35,7 @@ const EnterpriseSection = () => {
             <div className="space-y-4">
               <Card className="glassmorphism">
                 <CardContent className="p-4 flex items-center gap-4">
-                  <Shield className="h-16 w-16 text-tenbeo-light flex-shrink-0" />
+                  <Shield className="h-12 w-12 text-tenbeo-light flex-shrink-0" />
                   <div>
                     <h4 className="text-xl font-semibold mb-2">Enhanced Security</h4>
                     <p className="text-muted-foreground">
@@ -47,7 +47,7 @@ const EnterpriseSection = () => {
               
               <Card className="glassmorphism">
                 <CardContent className="p-4 flex items-center gap-4">
-                  <Server className="h-16 w-16 text-tenbeo-light flex-shrink-0" />
+                  <Server className="h-12 w-12 text-tenbeo-light flex-shrink-0" />
                   <div>
                     <h4 className="text-xl font-semibold mb-2">Custom Integration</h4>
                     <p className="text-muted-foreground">
@@ -59,7 +59,7 @@ const EnterpriseSection = () => {
               
               <Card className="glassmorphism">
                 <CardContent className="p-4 flex items-center gap-4">
-                  <Users className="h-16 w-16 text-tenbeo-light flex-shrink-0" />
+                  <Users className="h-12 w-12 text-tenbeo-light flex-shrink-0" />
                   <div>
                     <h4 className="text-xl font-semibold mb-2">Productivity Boost</h4>
                     <p className="text-muted-foreground">

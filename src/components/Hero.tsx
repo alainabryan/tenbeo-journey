@@ -45,13 +45,13 @@ const Hero = () => {
           </p>
         </div>
         
-        {/* Pre-order now available label */}
-        <div className="flex items-center mb-8 gap-3">
-          <div className="w-10 h-10 rounded-full bg-tenbeo flex items-center justify-center">
-            <div className="w-6 h-6 rounded-full bg-tenbeo animate-heartbeat"></div>
-          </div>
-          <div className="bg-tenbeo/90 text-white font-medium px-6 py-2 rounded-full">
-            Pre-order now available
+        {/* Pre-order now available label - updated to match design */}
+        <div className="flex items-center mb-8">
+          <div className="h-12 px-6 rounded-full border border-tenbeo bg-transparent flex items-center gap-3">
+            <div className="w-8 h-8 rounded-full bg-tenbeo/20 flex items-center justify-center">
+              <div className="w-4 h-4 rounded-full bg-tenbeo/40 animate-heartbeat"></div>
+            </div>
+            <span className="text-sm font-medium">Pre-order now available</span>
           </div>
         </div>
         

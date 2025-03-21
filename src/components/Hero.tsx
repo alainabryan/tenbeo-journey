@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from 'react';
 import { ArrowDown } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -95,7 +94,7 @@ const Hero = () => {
             </Button>
           </Link>
           
-          <a href="#about" className="inline-flex items-center justify-center h-12 px-8 rounded-md border border-input bg-background hover:bg-accent hover:text-accent-foreground">
+          <a href="#about" className="inline-flex items-center justify-center h-12 px-8 rounded-full border border-input bg-background hover:bg-accent hover:text-accent-foreground">
             Learn More
           </a>
         </div>

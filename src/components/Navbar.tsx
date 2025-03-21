@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -20,25 +19,21 @@ const Navbar = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      // Set navbar background based on scroll
       const isScrolled = window.scrollY > 20;
       if (isScrolled !== scrolled) {
         setScrolled(isScrolled);
       }
 
-      // Determine active section
       const sectionElements = sections.map(section => ({
         id: section.id,
         element: document.getElementById(section.id)
       })).filter(section => section.element);
 
-      // Add hero section
       const heroSection = document.getElementById('hero');
       if (heroSection) {
         sectionElements.unshift({ id: 'hero', element: heroSection });
       }
 
-      // Find the section that is currently in view
       const currentSection = sectionElements.find(section => {
         const rect = section.element?.getBoundingClientRect();
         return rect && rect.top <= 100 && rect.bottom >= 100;
@@ -67,7 +62,6 @@ const Navbar = () => {
       scrolled ? "py-3 glassmorphism shadow-md" : "py-5 bg-transparent"
     )}>
       <div className="container mx-auto flex justify-between items-center px-4">
-        {/* Logo - Left aligned */}
         <a 
           href="#hero" 
           className="text-2xl font-bold text-foreground flex items-center group"
@@ -83,7 +77,6 @@ const Navbar = () => {
           />
         </a>
         
-        {/* Navigation - Centered */}
         <div className="hidden md:flex space-x-1 bg-card/80 backdrop-blur-sm rounded-full px-2 py-1">
           {sections.map((section) => (
             <a
@@ -103,7 +96,6 @@ const Navbar = () => {
           ))}
         </div>
         
-        {/* Pre-order button - Right aligned */}
         <Link to="/checkout" className="hidden md:block">
           <Button 
             className="bg-tenbeo hover:bg-tenbeo-dark text-white font-medium px-6 py-2"
@@ -112,7 +104,6 @@ const Navbar = () => {
           </Button>
         </Link>
         
-        {/* Mobile menu button */}
         <button 
           className="md:hidden p-2 rounded-md bg-card/50"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -125,7 +116,6 @@ const Navbar = () => {
         </button>
       </div>
       
-      {/* Mobile menu */}
       {mobileMenuOpen && (
         <div className="md:hidden glassmorphism mt-2 mx-4 rounded-xl p-4 border border-white/10">
           <div className="flex flex-col space-y-3">
@@ -147,7 +137,7 @@ const Navbar = () => {
             ))}
             <Link 
               to="/checkout"
-              className="mt-2 px-4 py-2 bg-tenbeo text-white rounded-md text-center"
+              className="mt-2 px-4 py-2 bg-tenbeo text-white rounded-full text-center"
               onClick={() => setMobileMenuOpen(false)}
             >
               Pre-order Now

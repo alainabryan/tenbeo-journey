@@ -1,12 +1,12 @@
 
 import { useEffect, useState } from 'react';
-import { ArrowDown, Heart, HeartPulse } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
+import Calabeo from './Calabeo';
 
 const Hero = () => {
-  const [userCount, setUserCount] = useState(1530);
-  const [authCount, setAuthCount] = useState(28490);
+  const [userCount, setUserCount] = useState(1535);
+  const [authCount, setAuthCount] = useState(28616);
   
   // Simulate updating statistics
   useEffect(() => {
@@ -25,114 +25,101 @@ const Hero = () => {
   }, []);
 
   return (
-    <section id="hero" className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-20">
+    <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
       <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-gradient-to-b from-background via-background to-transparent opacity-90"></div>
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(87,19,203,0.15),transparent_70%)]"></div>
-        
-        {/* Animated background elements */}
-        <div className="absolute top-1/4 left-1/4 w-64 h-64 rounded-full bg-tenbeo/5 animate-pulse-slow"></div>
-        <div className="absolute bottom-1/4 right-1/3 w-96 h-96 rounded-full bg-tenbeo/10 animate-pulse-slow" style={{ animationDelay: '1s' }}></div>
       </div>
       
-      <div className="container relative z-10 flex flex-col items-center px-4 md:px-8">
-        <div className="text-center mb-8">
-          <h1 className="text-[4rem] md:text-[6rem] lg:text-[8rem] font-bold leading-none tracking-tight">
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-tenbeo-light to-tenbeo">TENBEO</span>
+      <div className="container relative z-10 flex flex-col md:flex-row items-center justify-between gap-6 px-4 md:px-8">
+        {/* Left column with main text and stats */}
+        <div className="w-full md:w-1/2 flex flex-col items-start">
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-4">
+            Authenticate<br />
+            with your<br />
+            <span className="text-tenbeo">heart</span>
+            <span className="inline-block ml-4 w-16 h-16 rounded-full bg-tenbeo/20 flex items-center justify-center">
+              <div className="w-8 h-8 rounded-full bg-tenbeo/40 animate-pulse"></div>
+            </span>
           </h1>
-          <p className="text-xl md:text-2xl text-muted-foreground max-w-xl mx-auto">
-            Authenticate with your unique heartbeat signature
-          </p>
+          
+          {/* Stats at the bottom left */}
+          <div className="mt-20 space-y-6">
+            <div className="px-6 py-4 rounded-2xl bg-black/20 backdrop-blur-sm w-64">
+              <p className="text-sm text-muted-foreground">Number of Users</p>
+              <p className="text-3xl font-bold text-tenbeo">{userCount.toLocaleString()}</p>
+            </div>
+            
+            <div className="px-6 py-4 rounded-2xl bg-black/20 backdrop-blur-sm w-64">
+              <p className="text-sm text-muted-foreground">Total Encryptions</p>
+              <p className="text-3xl font-bold text-tenbeo">{authCount.toLocaleString()}</p>
+            </div>
+          </div>
         </div>
         
-        {/* Pre-order now available label with pulsedot outside */}
-        <div className="flex items-center mb-8 gap-4">
-          {/* Pulsedot */}
-          <div className="h-10 w-10 rounded-full bg-tenbeo/20 flex items-center justify-center">
-            <div className="w-5 h-5 rounded-full bg-tenbeo/40 animate-heartbeat"></div>
+        {/* Center column with Calabeo */}
+        <div className="relative mx-auto my-10 md:my-0">
+          <Calabeo size="xl" variant="vector" className="z-10" />
+          
+          {/* Pre-order now available label with pulsedot outside */}
+          <div className="absolute bottom-0 right-0 flex items-center gap-4">
+            {/* Pulsedot */}
+            <div className="h-10 w-10 rounded-full bg-tenbeo/20 flex items-center justify-center">
+              <div className="w-5 h-5 rounded-full bg-tenbeo/40 animate-pulse"></div>
+            </div>
+            
+            {/* Now available button */}
+            <div className="h-10 px-6 rounded-full border border-tenbeo bg-transparent flex items-center">
+              <span className="text-sm font-medium">Pre-order now available</span>
+            </div>
+          </div>
+        </div>
+        
+        {/* Right column with feature cards */}
+        <div className="w-full md:w-1/3 space-y-4">
+          {/* Feature Cards */}
+          <div className="p-6 rounded-2xl bg-black/20 backdrop-blur-sm border border-tenbeo/20">
+            <div className="flex items-center mb-2">
+              <div className="w-10 h-10 rounded-full bg-tenbeo/10 flex items-center justify-center mr-3">
+                <svg className="w-6 h-6 text-tenbeo" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-bold">Private</h3>
+            </div>
+            <p className="text-muted-foreground">Your data never leaves your device</p>
           </div>
           
-          {/* Now available button */}
-          <div className="h-10 px-6 rounded-full border border-tenbeo bg-transparent flex items-center">
-            <span className="text-sm font-medium">Pre-order now available</span>
-          </div>
-        </div>
-        
-        {/* Calabeo Visualization - Central Element */}
-        <div className="w-full max-w-2xl aspect-square relative mb-16">
-          <div className="absolute inset-0 bg-gradient-to-r from-tenbeo-dark/20 to-tenbeo-light/20 rounded-full blur-3xl opacity-30"></div>
-          <img 
-            src="/lovable-uploads/4ae18c97-f220-4a36-82c7-34d563cfb97b.png" 
-            alt="Calabeo Heartbeat Visualization" 
-            className="w-full h-full object-contain animate-float"
-          />
-        </div>
-        
-        {/* Features */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 w-full max-w-4xl">
-          <div className="text-center p-4">
-            <div className="w-12 h-12 mx-auto mb-3 flex items-center justify-center">
-              <div className="w-10 h-10 rounded-full bg-tenbeo/20 flex items-center justify-center">
-                <div className="w-6 h-6 rounded-full bg-tenbeo/40 animate-heartbeat"></div>
+          <div className="p-6 rounded-2xl bg-black/20 backdrop-blur-sm border border-tenbeo/20">
+            <div className="flex items-center mb-2">
+              <div className="w-10 h-10 rounded-full bg-tenbeo/10 flex items-center justify-center mr-3">
+                <svg className="w-6 h-6 text-tenbeo" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
               </div>
+              <h3 className="text-xl font-bold">Productivity Boost</h3>
             </div>
-            <h3 className="text-lg font-semibold mb-1">Unhackable</h3>
-            <p className="text-sm text-muted-foreground">Your heartbeat can't be stolen</p>
+            <p className="text-muted-foreground">Eliminate password resets and streamline authentication for all employees</p>
           </div>
           
-          <div className="text-center p-4">
-            <div className="w-12 h-12 mx-auto mb-3 flex items-center justify-center">
-              <div className="w-10 h-10 rounded-full bg-tenbeo/20 flex items-center justify-center">
-                <div className="w-6 h-6 rounded-full bg-tenbeo/40 animate-heartbeat"></div>
+          <div className="p-6 rounded-2xl bg-black/20 backdrop-blur-sm border border-tenbeo/20">
+            <div className="flex items-center mb-2">
+              <div className="w-10 h-10 rounded-full bg-tenbeo/10 flex items-center justify-center mr-3">
+                <svg className="w-6 h-6 text-tenbeo" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                </svg>
               </div>
+              <h3 className="text-xl font-bold">Security First</h3>
             </div>
-            <h3 className="text-lg font-semibold mb-1">Private</h3>
-            <p className="text-sm text-muted-foreground">Your data never leaves your device</p>
+            <p className="text-muted-foreground">Enhanced security with biometric authentication that can't be stolen</p>
           </div>
           
-          <div className="text-center p-4">
-            <div className="w-12 h-12 mx-auto mb-3 flex items-center justify-center">
-              <div className="w-10 h-10 rounded-full bg-tenbeo/20 flex items-center justify-center">
-                <div className="w-6 h-6 rounded-full bg-tenbeo/40 animate-heartbeat"></div>
-              </div>
-            </div>
-            <h3 className="text-lg font-semibold mb-1">Unique</h3>
-            <p className="text-sm text-muted-foreground">Every heart has its own signature</p>
-          </div>
-        </div>
-        
-        <div className="flex gap-6 mb-12">
-          <Link to="/checkout" className="inline-block">
-            <Button size="lg" className="bg-tenbeo hover:bg-tenbeo-dark text-white font-medium px-8">
+          <Link to="/checkout" className="inline-block w-full mt-8">
+            <Button size="lg" className="w-full bg-tenbeo hover:bg-tenbeo-dark text-white font-medium px-8 py-6 h-auto rounded-xl">
               Pre-order Now
             </Button>
           </Link>
-          
-          <a href="#about" className="inline-flex items-center justify-center h-12 px-8 rounded-full border border-input bg-background hover:bg-accent hover:text-accent-foreground">
-            Learn More
-          </a>
         </div>
-        
-        <div className="flex gap-16 my-4 glassmorphism px-8 py-4 rounded-full">
-          <div className="text-center">
-            <p className="text-sm text-muted-foreground">Users</p>
-            <p className="text-2xl font-bold text-tenbeo animate-pulse-slow">{userCount.toLocaleString()}</p>
-          </div>
-          <div className="text-center">
-            <p className="text-sm text-muted-foreground">Authentications</p>
-            <p className="text-2xl font-bold text-tenbeo animate-pulse-slow">{authCount.toLocaleString()}</p>
-          </div>
-        </div>
-        
-        <button 
-          onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}
-          className="animate-float text-muted-foreground hover:text-foreground transition-colors mt-8"
-        >
-          <div className="flex flex-col items-center">
-            <span className="mb-2 text-sm">Scroll Down</span>
-            <ArrowDown className="w-5 h-5" />
-          </div>
-        </button>
       </div>
     </section>
   );

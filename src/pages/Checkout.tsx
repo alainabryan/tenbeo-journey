@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
-import { ArrowLeft, CreditCard, Heart, Shield } from 'lucide-react';
+import { ArrowLeft, CreditCard, Heart, Shield, Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const products = {

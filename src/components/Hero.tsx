@@ -45,12 +45,15 @@ const Hero = () => {
           </p>
         </div>
         
-        {/* Pre-order now available label - updated to match design */}
-        <div className="flex items-center mb-8">
-          <div className="h-12 px-6 rounded-full border border-tenbeo bg-transparent flex items-center gap-3">
-            <div className="w-8 h-8 rounded-full bg-tenbeo/20 flex items-center justify-center">
-              <div className="w-4 h-4 rounded-full bg-tenbeo/40 animate-heartbeat"></div>
-            </div>
+        {/* Pre-order now available label with pulsedot outside */}
+        <div className="flex items-center mb-8 gap-4">
+          {/* Pulsedot */}
+          <div className="h-10 w-10 rounded-full bg-tenbeo/20 flex items-center justify-center">
+            <div className="w-5 h-5 rounded-full bg-tenbeo/40 animate-heartbeat"></div>
+          </div>
+          
+          {/* Now available button */}
+          <div className="h-10 px-6 rounded-full border border-tenbeo bg-transparent flex items-center">
             <span className="text-sm font-medium">Pre-order now available</span>
           </div>
         </div>

@@ -159,6 +159,18 @@ const Checkout = () => {
                   className="max-w-full h-auto"
                 />
               </div>
+              
+              <div className="mt-8 glassmorphism p-6 rounded-xl">
+                <h3 className="text-xl font-semibold mb-4">Product Details</h3>
+                <ul className="space-y-3">
+                  {product.features.map((feature, index) => (
+                    <li key={index} className="flex items-start">
+                      <Check className="w-5 h-5 text-tenbeo-light mt-0.5 mr-2 flex-shrink-0" />
+                      <span>{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
             
             {/* Product Info */}
@@ -179,6 +191,14 @@ const Checkout = () => {
                   <li className="flex items-start">
                     <Check className="w-5 h-5 text-tenbeo-light mt-0.5 mr-2 flex-shrink-0" />
                     <span>Seamless integration with browser and applications</span>
+                  </li>
+                  <li className="flex items-start">
+                    <Check className="w-5 h-5 text-tenbeo-light mt-0.5 mr-2 flex-shrink-0" />
+                    <span>Send and receive encrypted emails</span>
+                  </li>
+                  <li className="flex items-start">
+                    <Check className="w-5 h-5 text-tenbeo-light mt-0.5 mr-2 flex-shrink-0" />
+                    <span>Send humanity-verified emails</span>
                   </li>
                 </ul>
               </div>

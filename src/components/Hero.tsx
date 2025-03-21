@@ -45,6 +45,16 @@ const Hero = () => {
           </p>
         </div>
         
+        {/* Pre-order now available label */}
+        <div className="flex items-center mb-8 gap-3">
+          <div className="w-10 h-10 rounded-full bg-tenbeo flex items-center justify-center">
+            <div className="w-6 h-6 rounded-full bg-tenbeo animate-heartbeat"></div>
+          </div>
+          <div className="bg-tenbeo/90 text-white font-medium px-6 py-2 rounded-full">
+            Pre-order now available
+          </div>
+        </div>
+        
         {/* Calabeo Visualization - Central Element */}
         <div className="w-full max-w-2xl aspect-square relative mb-16">
           <div className="absolute inset-0 bg-gradient-to-r from-tenbeo-dark/20 to-tenbeo-light/20 rounded-full blur-3xl opacity-30"></div>
@@ -95,10 +105,9 @@ const Hero = () => {
             </Button>
           </Link>
           
-          <div className="flex items-center justify-center h-12 px-8 rounded-full border border-tenbeo bg-background hover:bg-accent hover:text-accent-foreground">
-            <HeartPulse className="mr-2 text-tenbeo animate-pulse-slow" />
-            <span>Pre-order now available</span>
-          </div>
+          <a href="#about" className="inline-flex items-center justify-center h-12 px-8 rounded-full border border-input bg-background hover:bg-accent hover:text-accent-foreground">
+            Learn More
+          </a>
         </div>
         
         <div className="flex gap-16 my-4 glassmorphism px-8 py-4 rounded-full">

@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { useSearchParams, Link, useNavigate } from 'react-router-dom';
 import { ArrowLeft, CreditCard, Heart, Shield, Check, Minus, Plus, MapPin, Truck } from 'lucide-react';
@@ -97,10 +98,13 @@ const Checkout = () => {
     window.scrollTo(0, 0);
   }, []);
 
-  // Calculate totals
+  // Calculate totals with default values for optional properties
+  const sensorPrice = product.sensorPrice || 0;
+  const monthlyPrice = product.monthlyPrice || 0;
+  const freeMonths = product.freeMonths || 0;
   const selectedShipping = shippingOptions.find(option => option.id === formData.shipping) || shippingOptions[0];
-  const sensorTotal = product.sensorPrice * formData.quantity;
-  const monthlyTotal = product.monthlyPrice;
+  const sensorTotal = sensorPrice * formData.quantity;
+  const monthlyTotal = monthlyPrice;
   const shippingTotal = selectedShipping.price;
   const todayTotal = sensorTotal + shippingTotal;
   
@@ -148,10 +152,10 @@ const Checkout = () => {
                     <Check className="w-5 h-5 text-tenbeo-light mt-0.5 mr-2 flex-shrink-0" />
                     <span>One-time purchase of high-quality biometric sensor</span>
                   </li>
-                  {product.freeMonths > 0 && (
+                  {freeMonths > 0 && (
                     <li className="flex items-start">
                       <Check className="w-5 h-5 text-tenbeo-light mt-0.5 mr-2 flex-shrink-0" />
-                      <span>Monthly subscription with {product.freeMonths} {product.freeMonths === 1 ? 'month' : 'months'} free</span>
+                      <span>Monthly subscription with {freeMonths} {freeMonths === 1 ? 'month' : 'months'} free</span>
                     </li>
                   )}
                   <li className="flex items-start">
@@ -171,23 +175,27 @@ const Checkout = () => {
                 </ul>
               </div>
               
-              <div className="flex items-center mb-6">
-                <div className="text-3xl font-bold">{product.sensorPrice}€</div>
-                <span className="text-muted-foreground ml-2">One-time purchase</span>
-              </div>
-              
-              <div className="mb-6">
-                <div className="text-lg font-medium mb-2">Monthly Subscription</div>
-                <div className="flex items-center">
-                  <div className="text-2xl font-bold">{product.monthlyPrice}€</div>
-                  <span className="text-muted-foreground ml-2">/month</span>
+              {sensorPrice > 0 && (
+                <div className="flex items-center mb-6">
+                  <div className="text-3xl font-bold">{sensorPrice}€</div>
+                  <span className="text-muted-foreground ml-2">One-time purchase</span>
                 </div>
-                {product.freeMonths > 0 && (
-                  <div className="mt-1 text-tenbeo-light font-medium">
-                    First {product.freeMonths} {product.freeMonths === 1 ? "month" : "months"} free
+              )}
+              
+              {monthlyPrice > 0 && (
+                <div className="mb-6">
+                  <div className="text-lg font-medium mb-2">Monthly Subscription</div>
+                  <div className="flex items-center">
+                    <div className="text-2xl font-bold">{monthlyPrice}€</div>
+                    <span className="text-muted-foreground ml-2">/month</span>
                   </div>
-                )}
-              </div>
+                  {freeMonths > 0 && (
+                    <div className="mt-1 text-tenbeo-light font-medium">
+                      First {freeMonths} {freeMonths === 1 ? "month" : "months"} free
+                    </div>
+                  )}
+                </div>
+              )}
               
               <div className="mb-6">
                 <div className="text-lg font-medium mb-2">Choose your plan</div>
@@ -203,7 +211,7 @@ const Checkout = () => {
                     {productId === 'earlybird' && (
                       <Check className="absolute top-2 right-2 h-4 w-4 text-amber-500" />
                     )}
-                    {plans.earlybird.spotsLeft > 0 && (
+                    {plans.earlybird.spotsLeft && plans.earlybird.totalSpots && (
                       <div className="mt-1 text-xs text-amber-500">
                         {plans.earlybird.spotsLeft}/{plans.earlybird.totalSpots} spots left
                       </div>
@@ -238,44 +246,51 @@ const Checkout = () => {
                 </div>
               </div>
               
-              <div className="mb-6">
-                <div className="text-lg font-medium mb-2">Quantity</div>
-                <div className="flex items-center">
-                  <Button 
-                    onClick={() => handleQuantityChange('decrease')} 
-                    variant="outline" 
-                    size="icon" 
-                    className="h-8 w-8 rounded-full"
-                    disabled={formData.quantity <= 1}
-                  >
-                    <Minus className="h-3 w-3" />
-                  </Button>
-                  <span className="mx-4 min-w-10 text-center">{formData.quantity}</span>
-                  <Button 
-                    onClick={() => handleQuantityChange('increase')} 
-                    variant="outline" 
-                    size="icon" 
-                    className="h-8 w-8 rounded-full"
-                  >
-                    <Plus className="h-3 w-3" />
-                  </Button>
+              {sensorPrice > 0 && (
+                <div className="mb-6">
+                  <div className="text-lg font-medium mb-2">Quantity</div>
+                  <div className="flex items-center">
+                    <Button 
+                      onClick={() => handleQuantityChange('decrease')} 
+                      variant="outline" 
+                      size="icon" 
+                      className="h-8 w-8 rounded-full"
+                      disabled={formData.quantity <= 1}
+                    >
+                      <Minus className="h-3 w-3" />
+                    </Button>
+                    <span className="mx-4 min-w-10 text-center">{formData.quantity}</span>
+                    <Button 
+                      onClick={() => handleQuantityChange('increase')} 
+                      variant="outline" 
+                      size="icon" 
+                      className="h-8 w-8 rounded-full"
+                    >
+                      <Plus className="h-3 w-3" />
+                    </Button>
+                  </div>
                 </div>
-              </div>
+              )}
               
-              <div className="glassmorphism p-4 rounded-lg mb-6">
-                <div className="flex justify-between mb-2">
-                  <span>Sensor ({formData.quantity})</span>
-                  <span>{sensorTotal.toFixed(2)}€</span>
+              {/* Only show if there's something to pay today */}
+              {sensorPrice > 0 && (
+                <div className="glassmorphism p-4 rounded-lg mb-6">
+                  <div className="flex justify-between mb-2">
+                    <span>Sensor ({formData.quantity})</span>
+                    <span>{sensorTotal.toFixed(2)}€</span>
+                  </div>
+                  {monthlyPrice > 0 && (
+                    <div className="flex justify-between text-muted-foreground">
+                      <span>Monthly subscription (after free period)</span>
+                      <span>{monthlyTotal.toFixed(2)}€/month</span>
+                    </div>
+                  )}
+                  <div className="flex justify-between font-bold text-lg mt-3 pt-3 border-t border-border">
+                    <span>Total Today</span>
+                    <span>{sensorTotal.toFixed(2)}€</span>
+                  </div>
                 </div>
-                <div className="flex justify-between text-muted-foreground">
-                  <span>Monthly subscription (after free period)</span>
-                  <span>{monthlyTotal.toFixed(2)}€/month</span>
-                </div>
-                <div className="flex justify-between font-bold text-lg mt-3 pt-3 border-t border-border">
-                  <span>Total Today</span>
-                  <span>{sensorTotal.toFixed(2)}€</span>
-                </div>
-              </div>
+              )}
               
               <Button 
                 onClick={handleContinue} 
@@ -683,10 +698,12 @@ const Checkout = () => {
               </ul>
             </div>
             
-            <div className="flex items-center justify-center space-x-2 mb-4 text-tenbeo-light">
-              <Check className="h-5 w-5" />
-              <span>Your subscription will start after your {product.freeMonths} {product.freeMonths === 1 ? 'month' : 'months'} free trial.</span>
-            </div>
+            {freeMonths > 0 && (
+              <div className="flex items-center justify-center space-x-2 mb-4 text-tenbeo-light">
+                <Check className="h-5 w-5" />
+                <span>Your subscription will start after your {freeMonths} {freeMonths === 1 ? 'month' : 'months'} free trial.</span>
+              </div>
+            )}
             
             <p className="text-muted-foreground">
               A confirmation email has been sent to <span className="font-semibold">{formData.email}</span>

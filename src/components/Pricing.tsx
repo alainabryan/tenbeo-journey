@@ -15,8 +15,8 @@ const PricingCard = ({
 }) => {
   const {
     title,
-    sensorPrice,
-    monthlyPrice,
+    sensorPrice = 0,
+    monthlyPrice = 0,
     description,
     features,
     highlighted = false,
@@ -57,13 +57,13 @@ const PricingCard = ({
       </div>
       
       <div className="mb-6">
-        {sensorPrice && (
+        {sensorPrice > 0 && (
           <div className="flex items-end mb-2">
             <span className="text-4xl font-bold">{sensorPrice}€</span>
             <span className="text-muted-foreground ml-1 mb-1">one-time</span>
           </div>
         )}
-        {monthlyPrice && (
+        {monthlyPrice > 0 && (
           <div className="flex items-end">
             <span className="text-2xl font-bold">{monthlyPrice}€</span>
             <span className="text-muted-foreground ml-1 mb-1">/month</span>

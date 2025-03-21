@@ -1,5 +1,28 @@
 
 // Central configuration for all pricing plans
+
+// Define a base plan interface with required properties
+interface BasePlan {
+  id: string;
+  title: string;
+  description: string;
+  features: string[];
+  highlighted: boolean;
+  earlyBird: boolean;
+  buttonText: string;
+  contactSales: boolean;
+}
+
+// Define a complete plan interface with all possible properties
+export interface Plan extends BasePlan {
+  sensorPrice?: number;
+  monthlyPrice?: number;
+  freeMonths?: number;
+  unavailableFeatures?: string[];
+  spotsLeft?: number;
+  totalSpots?: number;
+}
+
 export const plans = {
   earlybird: {
     id: "earlybird",
@@ -84,9 +107,10 @@ export const plans = {
     highlighted: false,
     earlyBird: false,
     buttonText: "Contact Sales",
-    contactSales: true
+    contactSales: true,
+    // Adding empty arrays for type safety
+    unavailableFeatures: []
   }
 };
 
 export type PlanId = keyof typeof plans;
-export type Plan = typeof plans[PlanId];

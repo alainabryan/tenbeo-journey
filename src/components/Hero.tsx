@@ -3,10 +3,12 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import Calabeo from './Calabeo';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const Hero = () => {
   const [userCount, setUserCount] = useState(1535);
   const [authCount, setAuthCount] = useState(28616);
+  const isMobile = useIsMobile();
   
   // Simulate updating statistics
   useEffect(() => {
@@ -33,7 +35,7 @@ const Hero = () => {
       
       <div className="container relative z-10 flex flex-col md:flex-row items-center justify-between gap-6 px-4 md:px-8">
         {/* Left column with main text and stats */}
-        <div className="w-full md:w-1/2 flex flex-col items-start">
+        <div className="w-full md:w-1/2 lg:w-1/3 flex flex-col items-start">
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-4">
             Authenticate<br />
             with your<br />
@@ -59,24 +61,11 @@ const Hero = () => {
         
         {/* Center column with Calabeo */}
         <div className="relative mx-auto my-10 md:my-0">
-          <Calabeo size="xl" variant="vector" className="z-10" />
-          
-          {/* Pre-order now available label with pulsedot outside */}
-          <div className="absolute bottom-0 right-0 flex items-center gap-4">
-            {/* Pulsedot */}
-            <div className="h-10 w-10 rounded-full bg-tenbeo/20 flex items-center justify-center">
-              <div className="w-5 h-5 rounded-full bg-tenbeo/40 animate-pulse"></div>
-            </div>
-            
-            {/* Now available button */}
-            <div className="h-10 px-6 rounded-full border border-tenbeo bg-transparent flex items-center">
-              <span className="text-sm font-medium">Pre-order now available</span>
-            </div>
-          </div>
+          <Calabeo size={isMobile ? "lg" : "xl"} variant="spiral" className="z-10" />
         </div>
         
         {/* Right column with feature cards */}
-        <div className="w-full md:w-1/3 space-y-4">
+        <div className="w-full md:w-1/3 space-y-4 flex flex-col">
           {/* Feature Cards */}
           <div className="p-6 rounded-2xl bg-black/20 backdrop-blur-sm border border-tenbeo/20">
             <div className="flex items-center mb-2">
@@ -114,11 +103,18 @@ const Hero = () => {
             <p className="text-muted-foreground">Enhanced security with biometric authentication that can't be stolen</p>
           </div>
           
-          <Link to="/checkout" className="inline-block w-full mt-8">
-            <Button size="lg" className="w-full bg-tenbeo hover:bg-tenbeo-dark text-white font-medium px-8 py-6 h-auto rounded-xl">
-              Pre-order Now
-            </Button>
-          </Link>
+          {/* Pre-order now available with pulsedot outside */}
+          <div className="mt-auto flex items-center justify-end gap-4 h-10">
+            {/* Pulsedot */}
+            <div className="h-10 w-10 rounded-full bg-tenbeo/20 flex items-center justify-center">
+              <div className="w-5 h-5 rounded-full bg-tenbeo/40 animate-pulse"></div>
+            </div>
+            
+            {/* Now available button */}
+            <div className="h-10 px-6 rounded-full border border-tenbeo bg-transparent flex items-center">
+              <span className="text-sm font-medium">Pre-order now available</span>
+            </div>
+          </div>
         </div>
       </div>
     </section>

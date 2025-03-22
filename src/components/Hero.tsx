@@ -59,7 +59,7 @@ const Hero = () => {
         </div>
         
         <div className="relative mx-auto my-10 md:my-0">
-          <Calabeo size={isMobile ? "lg" : "xl"} variant="new-purple" className="z-10" />
+          <Calabeo size={isMobile ? "lg" : "xl"} variant="purple" className="z-10" />
         </div>
         
         <div className="w-full md:w-1/3 space-y-4 flex flex-col">

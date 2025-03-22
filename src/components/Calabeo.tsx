@@ -47,6 +47,11 @@ const Calabeo = ({
         src={getImage()} 
         alt="Calabeo Heartbeat Visualization" 
         className={`w-full h-full object-contain ${animated ? 'animate-float' : ''}`}
+        onError={(e) => {
+          console.error("Image failed to load:", getImage());
+          e.currentTarget.style.border = "1px solid red";
+          e.currentTarget.style.padding = "8px";
+        }}
       />
       
       {/* Optional sparkle effects */}

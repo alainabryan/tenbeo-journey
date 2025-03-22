@@ -47,9 +47,9 @@ const Hero = () => {
               with your<br />
               <span className="flex items-center">
                 <span className="text-tenbeo">heart</span>
-                <span className="flex items-center ml-2">
-                  <span className="w-10 h-10 rounded-full bg-tenbeo/20 flex items-center justify-center">
-                    <div className="w-6 h-6 rounded-full bg-tenbeo animate-pulse"></div>
+                <span className="flex items-center ml-2 my-auto">
+                  <span className="w-14 h-14 rounded-full bg-tenbeo/20 flex items-center justify-center">
+                    <div className="w-8 h-8 rounded-full bg-tenbeo animate-pulse"></div>
                   </span>
                 </span>
               </span>

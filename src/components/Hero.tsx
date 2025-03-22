@@ -45,8 +45,13 @@ const Hero = () => {
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-4">
               Authenticate<br />
               with your<br />
-              <span className="text-tenbeo">heart</span><span className="inline-block ml-2 w-8 h-8 rounded-full bg-tenbeo/10 flex items-center justify-center">
-                <div className="w-6 h-6 rounded-full bg-tenbeo animate-pulse"></div>
+              <span className="inline-flex items-center">
+                <span className="text-tenbeo">heart</span>
+                <span className="inline-flex items-center justify-center ml-2">
+                  <span className="w-8 h-8 rounded-full bg-tenbeo/10 flex items-center justify-center">
+                    <div className="w-6 h-6 rounded-full bg-tenbeo animate-pulse"></div>
+                  </span>
+                </span>
               </span>
             </h1>
             
@@ -103,7 +108,7 @@ const Hero = () => {
           </div>
         </div>
         
-        {/* Pre-order now available button - moved to bottom right corner of screen */}
+        {/* Pre-order now available button - fixed to bottom right corner of screen */}
         <div className="fixed bottom-6 right-6 z-50">
           <div className="h-10 px-6 rounded-full border border-tenbeo bg-black/70 backdrop-blur-sm flex items-center">
             <span className="text-sm font-medium">Pre-order now available</span>

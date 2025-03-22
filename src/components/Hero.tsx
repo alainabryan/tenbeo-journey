@@ -45,8 +45,7 @@ const Hero = () => {
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-4">
               Authenticate<br />
               with your<br />
-              <span className="text-tenbeo">heart</span>
-              <span className="inline-block ml-2 w-8 h-8 rounded-full bg-tenbeo:light flex items-center justify-center">
+              <span className="text-tenbeo">heart</span><span className="inline-block ml-2 w-8 h-8 rounded-full bg-tenbeo/10 flex items-center justify-center">
                 <div className="w-6 h-6 rounded-full bg-tenbeo animate-pulse"></div>
               </span>
             </h1>

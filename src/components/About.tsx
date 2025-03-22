@@ -13,18 +13,28 @@ const About = () => {
       if (!sectionsRef.current) return;
       
       const container = sectionsRef.current;
-      const scrollPosition = window.scrollY - container.offsetTop + window.innerHeight / 2;
-      const sectionHeight = container.scrollHeight / 3;
+      const containerTop = container.offsetTop;
+      const containerHeight = container.scrollHeight;
+      const windowHeight = window.innerHeight;
+      const scrollPosition = window.scrollY;
+      
+      // Calculate percentage scrolled through the about section
+      const scrollPercentage = (scrollPosition - containerTop + windowHeight/2) / (containerHeight - windowHeight);
       
       // Calculate which section we're in (0, 1, or 2)
+      // Each section takes up 1/3 of the total scroll height
       const newSection = Math.min(
         2,
-        Math.max(0, Math.floor(scrollPosition / sectionHeight))
+        Math.max(0, Math.floor(scrollPercentage * 3))
       );
+      
+      // Calculate rotation based on scroll percentage
+      const newRotation = scrollPercentage * 270; // 3 sections * 90 degrees
+      
+      setCalabeoRotation(newRotation);
       
       if (newSection !== currentSection) {
         setCurrentSection(newSection);
-        setCalabeoRotation(newSection * 90); // Rotate 90 degrees for each section
       }
     };
     
@@ -77,38 +87,93 @@ const About = () => {
           <Calabeo size="xl" variant="spiro" animated={true} />
         </div>
         
-        {/* Content sections that overlay the Calabeo */}
+        {/* Content sections that stack vertically */}
         <div className="container mx-auto z-10 px-4">
-          {sections.map((section, index) => (
+          {/* Each section fills the entire viewport height */}
+          <div className="h-screen flex items-center justify-center">
             <div 
-              key={index}
-              className={`absolute inset-0 transition-opacity duration-700 flex items-center justify-center ${
-                currentSection === index ? 'opacity-100' : 'opacity-0 pointer-events-none'
+              className={`max-w-3xl mx-auto text-center transition-opacity duration-700 ${
+                currentSection === 0 ? 'opacity-100' : 'opacity-0'
               }`}
             >
-              <div className="max-w-3xl mx-auto text-center">
-                <div className="flex justify-center mb-6">
-                  <div className="p-4 rounded-full bg-tenbeo/10 backdrop-blur-sm">
-                    {section.icon}
-                  </div>
-                </div>
-                
-                <h2 className="text-4xl md:text-5xl font-bold mb-8 tracking-tight">
-                  {section.title}
-                </h2>
-                
-                <p className="text-xl md:text-2xl leading-relaxed text-muted-foreground mb-8">
-                  {section.description}
-                </p>
-                
-                <div className="glassmorphism rounded-xl p-6 border-l-4 border-tenbeo-light inline-block text-left">
-                  <p className="text-xl font-medium text-tenbeo">
-                    {section.highlight}
-                  </p>
+              <div className="flex justify-center mb-6">
+                <div className="p-4 rounded-full bg-tenbeo/10 backdrop-blur-sm">
+                  {sections[0].icon}
                 </div>
               </div>
+              
+              <h2 className="text-4xl md:text-5xl font-bold mb-8 tracking-tight">
+                {sections[0].title}
+              </h2>
+              
+              <p className="text-xl md:text-2xl leading-relaxed text-muted-foreground mb-8">
+                {sections[0].description}
+              </p>
+              
+              <div className="glassmorphism rounded-xl p-6 border-l-4 border-tenbeo-light inline-block text-left">
+                <p className="text-xl font-medium text-tenbeo">
+                  {sections[0].highlight}
+                </p>
+              </div>
             </div>
-          ))}
+          </div>
+          
+          {/* These sections should automatically appear as user scrolls down */}
+          <div className="h-screen flex items-center justify-center">
+            <div 
+              className={`max-w-3xl mx-auto text-center transition-opacity duration-700 ${
+                currentSection === 1 ? 'opacity-100' : 'opacity-0'
+              }`}
+            >
+              <div className="flex justify-center mb-6">
+                <div className="p-4 rounded-full bg-tenbeo/10 backdrop-blur-sm">
+                  {sections[1].icon}
+                </div>
+              </div>
+              
+              <h2 className="text-4xl md:text-5xl font-bold mb-8 tracking-tight">
+                {sections[1].title}
+              </h2>
+              
+              <p className="text-xl md:text-2xl leading-relaxed text-muted-foreground mb-8">
+                {sections[1].description}
+              </p>
+              
+              <div className="glassmorphism rounded-xl p-6 border-l-4 border-tenbeo-light inline-block text-left">
+                <p className="text-xl font-medium text-tenbeo">
+                  {sections[1].highlight}
+                </p>
+              </div>
+            </div>
+          </div>
+          
+          <div className="h-screen flex items-center justify-center">
+            <div 
+              className={`max-w-3xl mx-auto text-center transition-opacity duration-700 ${
+                currentSection === 2 ? 'opacity-100' : 'opacity-0'
+              }`}
+            >
+              <div className="flex justify-center mb-6">
+                <div className="p-4 rounded-full bg-tenbeo/10 backdrop-blur-sm">
+                  {sections[2].icon}
+                </div>
+              </div>
+              
+              <h2 className="text-4xl md:text-5xl font-bold mb-8 tracking-tight">
+                {sections[2].title}
+              </h2>
+              
+              <p className="text-xl md:text-2xl leading-relaxed text-muted-foreground mb-8">
+                {sections[2].description}
+              </p>
+              
+              <div className="glassmorphism rounded-xl p-6 border-l-4 border-tenbeo-light inline-block text-left">
+                <p className="text-xl font-medium text-tenbeo">
+                  {sections[2].highlight}
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
         
         {/* Progress indicator dots */}

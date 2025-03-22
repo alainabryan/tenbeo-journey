@@ -46,7 +46,9 @@ const Hero = () => {
               Authenticate<br />
               with your<br />
               <span className="text-tenbeo">heart</span>
-              <span className="inline-block ml-1 w-4 h-4 rounded-full bg-tenbeo/70 flex items-center justify-center animate-pulse"></span>
+              <span className="inline-block ml-2 w-8 h-8 rounded-full bg-tenbeo:light flex items-center justify-center">
+                <div className="w-6 h-6 rounded-full bg-tenbeo animate-pulse"></div>
+              </span>
             </h1>
             
             <div className="mt-10 space-y-4">
@@ -99,12 +101,13 @@ const Hero = () => {
                 </div>
               </div>
             </div>
-            
-            <div className="mt-auto flex items-center justify-end h-10">
-              <div className="h-10 px-6 rounded-full border border-tenbeo bg-transparent flex items-center">
-                <span className="text-sm font-medium">Pre-order now available</span>
-              </div>
-            </div>
+          </div>
+        </div>
+        
+        {/* Pre-order now available button - moved to bottom right corner of screen */}
+        <div className="fixed bottom-6 right-6 z-50">
+          <div className="h-10 px-6 rounded-full border border-tenbeo bg-black/70 backdrop-blur-sm flex items-center">
+            <span className="text-sm font-medium">Pre-order now available</span>
           </div>
         </div>
       </div>

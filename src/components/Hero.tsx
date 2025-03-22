@@ -65,35 +65,41 @@ const Hero = () => {
           </div>
           
           {/* Right column - feature boxes */}
-          <div className="w-full md:w-1/3 space-y-4 flex flex-col">
-            <div className="p-6 rounded-2xl bg-black/50 backdrop-blur-sm border border-tenbeo/20">
-              <div className="flex items-center mb-2">
-                <div className="w-10 h-10 rounded-full bg-tenbeo/10 flex items-center justify-center mr-3">
+          <div className="w-full md:w-1/3 space-y-3 flex flex-col">
+            <div className="p-3 rounded-2xl bg-black/50 backdrop-blur-sm border border-tenbeo/20">
+              <div className="flex items-center">
+                <div className="w-10 h-10 rounded-full bg-tenbeo/10 flex items-center justify-center mr-2">
                   <Lock className="w-5 h-5 text-tenbeo" />
                 </div>
-                <h3 className="text-xl font-bold">Private</h3>
+                <div>
+                  <h3 className="text-sm font-bold">Private</h3>
+                  <p className="text-xs text-muted-foreground">Your data never leaves your device</p>
+                </div>
               </div>
-              <p className="text-muted-foreground">Your data never leaves your device</p>
             </div>
             
-            <div className="p-6 rounded-2xl bg-black/50 backdrop-blur-sm border border-tenbeo/20">
-              <div className="flex items-center mb-2">
-                <div className="w-10 h-10 rounded-full bg-tenbeo/10 flex items-center justify-center mr-3">
+            <div className="p-3 rounded-2xl bg-black/50 backdrop-blur-sm border border-tenbeo/20">
+              <div className="flex items-center">
+                <div className="w-10 h-10 rounded-full bg-tenbeo/10 flex items-center justify-center mr-2">
                   <Fingerprint className="w-5 h-5 text-tenbeo" />
                 </div>
-                <h3 className="text-xl font-bold">Unique</h3>
+                <div>
+                  <h3 className="text-sm font-bold">Unique</h3>
+                  <p className="text-xs text-muted-foreground">Authentication as individual as your heartbeat</p>
+                </div>
               </div>
-              <p className="text-muted-foreground">Authentication as individual as your heartbeat</p>
             </div>
             
-            <div className="p-6 rounded-2xl bg-black/50 backdrop-blur-sm border border-tenbeo/20">
-              <div className="flex items-center mb-2">
-                <div className="w-10 h-10 rounded-full bg-tenbeo/10 flex items-center justify-center mr-3">
+            <div className="p-3 rounded-2xl bg-black/50 backdrop-blur-sm border border-tenbeo/20">
+              <div className="flex items-center">
+                <div className="w-10 h-10 rounded-full bg-tenbeo/10 flex items-center justify-center mr-2">
                   <ShieldCheck className="w-5 h-5 text-tenbeo" />
                 </div>
-                <h3 className="text-xl font-bold">Secure</h3>
+                <div>
+                  <h3 className="text-sm font-bold">Secure</h3>
+                  <p className="text-xs text-muted-foreground">Biometric authentication that can't be stolen</p>
+                </div>
               </div>
-              <p className="text-muted-foreground">Biometric authentication that can't be stolen</p>
             </div>
             
             <div className="mt-auto flex items-center justify-end gap-4 h-10">

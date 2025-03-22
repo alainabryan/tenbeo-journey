@@ -34,8 +34,8 @@ const Hero = () => {
       </div>
       
       <div className="container relative z-10 flex flex-col items-center justify-between px-4 md:px-8">
-        {/* Calabeo placed in background on mobile, positioned absolutely */}
-        <div className={`${isMobile ? 'absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-40 -z-10' : 'relative order-2 my-10 md:my-0'}`}>
+        {/* Calabeo positioned absolutely for all screen sizes, centered */}
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-70 md:opacity-100 -z-10">
           <Calabeo size={isMobile ? "xl" : "xl"} variant="spiro" className="z-0" />
         </div>
         

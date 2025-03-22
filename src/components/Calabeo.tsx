@@ -12,7 +12,7 @@ const Calabeo = ({
   size = 'md', 
   animated = true, 
   className = '',
-  variant = 'purple'
+  variant = 'spiro'  // Changed default from 'purple' to 'spiro'
 }: CalabeoProps) => {
   const [currentVariant, setCurrentVariant] = useState(variant);
   const [imageLoaded, setImageLoaded] = useState(false);
@@ -35,17 +35,16 @@ const Calabeo = ({
       case 'spiro': return '/lovable-uploads/4ae18c97-f220-4a36-82c7-34d563cfb97b.png';
       case 'vector': return '/lovable-uploads/5967b6b5-022e-4268-9dca-002b78015cdc.png';
       case 'spiral': return '/lovable-uploads/da4504bd-15f8-44f8-8b45-9514c4314364.png';
-      // Since we're having issues with the new-purple variant, let's default to the working purple one
       case 'new-purple': return '/lovable-uploads/6538196a-8eec-4579-a9b5-e02aa0fcc292.png';
-      default: return '/lovable-uploads/6538196a-8eec-4579-a9b5-e02aa0fcc292.png';
+      default: return '/lovable-uploads/4ae18c97-f220-4a36-82c7-34d563cfb97b.png'; // Changed default to spiro
     }
   };
 
   const handleImageError = () => {
     console.log(`Failed to load image for variant: ${currentVariant}`);
-    if (currentVariant !== 'purple') {
-      console.log('Falling back to purple variant');
-      setCurrentVariant('purple');
+    if (currentVariant !== 'spiro') { // Changed fallback from 'purple' to 'spiro'
+      console.log('Falling back to spiro variant');
+      setCurrentVariant('spiro');
     }
   };
 

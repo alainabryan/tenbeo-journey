@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -11,7 +10,6 @@ const Hero = () => {
   const [authCount, setAuthCount] = useState(28616);
   const isMobile = useIsMobile();
   
-  // Simulate updating statistics
   useEffect(() => {
     const userInterval = setInterval(() => {
       setUserCount(prev => prev + Math.floor(Math.random() * 3));
@@ -59,7 +57,7 @@ const Hero = () => {
         </div>
         
         <div className="relative mx-auto my-10 md:my-0">
-          <Calabeo size={isMobile ? "lg" : "xl"} variant="purple" className="z-10" />
+          <Calabeo size={isMobile ? "lg" : "xl"} variant="spiro" className="z-10" />
         </div>
         
         <div className="w-full md:w-1/3 space-y-4 flex flex-col">

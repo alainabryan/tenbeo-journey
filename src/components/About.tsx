@@ -1,13 +1,12 @@
-
 import { useEffect, useRef, useState } from 'react';
 import { Shield, Lock, Sparkles } from 'lucide-react';
 import Calabeo from './Calabeo';
 
 const About = () => {
-  const [scrollPercentage, setScrollPercentage] = useState(0);
+  const [scrollPosition, setScrollPosition] = useState(0);
   const [calabeoRotation, setCalabeoRotation] = useState(0);
   const [visibleSection, setVisibleSection] = useState(0);
-  const sectionRef = useRef<HTMLDivElement>(null);
+  const aboutRef = useRef<HTMLDivElement>(null);
   
   // Define sections outside of render for cleaner code
   const sections = [
@@ -33,27 +32,23 @@ const About = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (!sectionRef.current) return;
+      if (!aboutRef.current) return;
       
-      const sectionElement = sectionRef.current;
-      const { top, height } = sectionElement.getBoundingClientRect();
-      const viewportHeight = window.innerHeight;
+      const { top, height } = aboutRef.current.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
       
-      // Calculate scroll percentage through the entire section (0 to 1)
-      const scrollableDistance = height - viewportHeight;
-      const scrolledAmount = Math.max(0, -top);
-      const percentage = Math.min(1, scrolledAmount / scrollableDistance);
+      // Calculate how far we've scrolled into the section
+      // This value will be 0 when just entering, and 1 when leaving
+      const scrolled = Math.max(0, -top / (height - windowHeight));
+      setScrollPosition(scrolled);
       
-      setScrollPercentage(percentage);
+      // Rotate Calabeo based on scroll (0 to 270 degrees)
+      const rotation = scrolled * 270;
+      setCalabeoRotation(rotation);
       
-      // Set rotation based on scroll percentage (0 to 270 degrees)
-      const newRotation = percentage * 270;
-      setCalabeoRotation(newRotation);
-      
-      // Determine which section should be visible (0, 1, or 2)
-      // Each section takes up 1/3 of the scroll range
-      const newVisibleSection = Math.min(2, Math.floor(percentage * 3));
-      setVisibleSection(newVisibleSection);
+      // Determine which text section should be visible (0, 1, or 2)
+      const sectionIndex = Math.min(2, Math.floor(scrolled * 3));
+      setVisibleSection(sectionIndex);
     };
     
     window.addEventListener('scroll', handleScroll);
@@ -65,70 +60,79 @@ const About = () => {
   return (
     <section 
       id="about" 
-      ref={sectionRef}
+      ref={aboutRef}
       className="relative bg-gradient-to-b from-background to-black"
       style={{ height: '300vh' }} // Three times viewport height for scrolling
     >
-      {/* Background container - fixed position */}
-      <div className="sticky top-0 h-screen w-full flex items-center justify-center">
+      {/* Fixed position container for the Calabeo - this will keep it centered on screen */}
+      <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-0 w-full h-screen flex items-center justify-center">
         {/* Background glow */}
-        <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0 z-0 flex items-center justify-center">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(87,19,203,0.15),transparent_70%)]"></div>
         </div>
         
-        {/* Calabeo that rotates - on the background layer */}
+        {/* Calabeo that rotates with scroll */}
         <div 
-          className="absolute inset-0 flex items-center justify-center z-0"
+          className="relative z-0"
           style={{ transform: `rotate(${calabeoRotation}deg)` }}
         >
           <Calabeo size="xl" variant="spiro" animated={true} />
         </div>
+      </div>
+      
+      {/* Content sections - these will scroll past the fixed Calabeo */}
+      <div className="relative z-10">
+        {/* Spacer to push content down so first section appears after Calabeo is visible */}
+        <div style={{ height: '100vh' }}></div>
         
-        {/* Content sections - positioned vertically one after another */}
-        <div className="relative z-10 container mx-auto px-4">
-          {sections.map((section, index) => (
-            <div 
-              key={index}
-              className={`transition-opacity duration-700 max-w-3xl mx-auto text-center ${
-                visibleSection === index ? 'opacity-100' : 'opacity-0'
-              }`}
-            >
-              <div className="flex justify-center mb-6">
-                <div className="p-4 rounded-full bg-tenbeo/10 backdrop-blur-sm">
-                  {section.icon}
+        {/* Content sections positioned at specific scroll points */}
+        {sections.map((section, index) => (
+          <div 
+            key={index}
+            className={`sticky top-0 h-screen w-full flex items-center justify-center transition-opacity duration-700 ${
+              visibleSection === index ? 'opacity-100' : 'opacity-0'
+            }`}
+            style={{ zIndex: 10 }}
+          >
+            <div className="container mx-auto px-4">
+              <div className="max-w-3xl mx-auto text-center">
+                <div className="flex justify-center mb-6">
+                  <div className="p-4 rounded-full bg-tenbeo/10 backdrop-blur-sm">
+                    {section.icon}
+                  </div>
+                </div>
+                
+                <h2 className="text-4xl md:text-5xl font-bold mb-8 tracking-tight">
+                  {section.title}
+                </h2>
+                
+                <p className="text-xl md:text-2xl leading-relaxed text-muted-foreground mb-8">
+                  {section.description}
+                </p>
+                
+                <div className="glassmorphism rounded-xl p-6 border-l-4 border-tenbeo-light inline-block text-left">
+                  <p className="text-xl font-medium text-tenbeo">
+                    {section.highlight}
+                  </p>
                 </div>
               </div>
-              
-              <h2 className="text-4xl md:text-5xl font-bold mb-8 tracking-tight">
-                {section.title}
-              </h2>
-              
-              <p className="text-xl md:text-2xl leading-relaxed text-muted-foreground mb-8">
-                {section.description}
-              </p>
-              
-              <div className="glassmorphism rounded-xl p-6 border-l-4 border-tenbeo-light inline-block text-left">
-                <p className="text-xl font-medium text-tenbeo">
-                  {section.highlight}
-                </p>
-              </div>
             </div>
-          ))}
-        </div>
-        
-        {/* Scroll progress indicators instead of breadcrumbs */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col space-y-2 z-20">
-          {[0, 1, 2].map((index) => (
-            <div 
-              key={index}
-              className={`w-1 h-12 rounded-full transition-all duration-300 ${
-                visibleSection === index 
-                  ? 'bg-tenbeo opacity-100' 
-                  : 'bg-gray-500 opacity-50'
-              }`}
-            />
-          ))}
-        </div>
+          </div>
+        ))}
+      </div>
+      
+      {/* Scroll progress indicators */}
+      <div className="fixed bottom-8 right-8 flex flex-col space-y-2 z-20">
+        {[0, 1, 2].map((index) => (
+          <div 
+            key={index}
+            className={`w-1 h-12 rounded-full transition-all duration-300 ${
+              visibleSection === index 
+                ? 'bg-tenbeo opacity-100' 
+                : 'bg-gray-500 opacity-50'
+            }`}
+          />
+        ))}
       </div>
     </section>
   );

@@ -96,19 +96,20 @@ const About = () => {
             }}
           >
             <div className="container mx-auto px-4">
-              <div className="max-w-3xl mx-auto text-center">
+              <div className="max-w-3xl mx-auto">
                 <div className="flex justify-center mb-6">
                   <div className="p-4 rounded-full bg-tenbeo/10 backdrop-blur-sm">
                     {section.icon}
                   </div>
                 </div>
                 
-                <h2 className="text-4xl md:text-5xl font-bold mb-4 tracking-tight">
+                <h2 className="text-4xl md:text-5xl font-bold mb-4 tracking-tight text-left" 
+                    style={{ textShadow: '0px 2px 4px rgba(0,0,0,0.5)' }}>
                   {section.description}
                 </h2>
                 
                 <div className="glassmorphism rounded-xl p-6 border-l-4 border-tenbeo-light inline-block text-left mt-4">
-                  <p className="text-xl font-medium text-tenbeo">
+                  <p className="text-xl font-medium text-white">
                     {section.highlight}
                   </p>
                 </div>

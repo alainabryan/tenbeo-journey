@@ -6,7 +6,6 @@ import Calabeo from './Calabeo';
 const About = () => {
   const [scrollPosition, setScrollPosition] = useState(0);
   const [calabeoRotation, setCalabeoRotation] = useState(0);
-  const [visibleSection, setVisibleSection] = useState(0);
   const aboutRef = useRef<HTMLDivElement>(null);
   
   // Define sections with shorter, more impactful quotes
@@ -48,11 +47,6 @@ const About = () => {
         // Rotate Calabeo based on scroll (0 to 270 degrees)
         const rotation = scrolled * 270;
         setCalabeoRotation(rotation);
-        
-        // Determine which text section should be visible (0, 1, or 2)
-        // Divide the scroll progress into three equal parts
-        const sectionIndex = Math.min(2, Math.floor(scrolled * 3));
-        setVisibleSection(sectionIndex);
       }
     };
     
@@ -94,10 +88,12 @@ const About = () => {
         {sections.map((section, index) => (
           <div 
             key={index}
-            className={`sticky top-0 h-screen w-full flex items-center justify-center transition-opacity duration-700 ${
-              visibleSection === index ? 'opacity-100' : 'opacity-0'
-            }`}
-            style={{ zIndex: 10 }}
+            className="min-h-screen w-full flex items-center justify-center"
+            style={{ 
+              position: 'sticky',
+              top: `${index * 33}vh`, 
+              zIndex: 10 
+            }}
           >
             <div className="container mx-auto px-4">
               <div className="max-w-3xl mx-auto text-center">
@@ -122,18 +118,20 @@ const About = () => {
         ))}
       </div>
       
-      {/* Scroll progress indicators */}
+      {/* Scroll progress indicator dots */}
       <div className="fixed bottom-8 right-8 flex flex-col space-y-2 z-20">
-        {[0, 1, 2].map((index) => (
-          <div 
-            key={index}
-            className={`w-1 h-12 rounded-full transition-all duration-300 ${
-              visibleSection === index 
-                ? 'bg-tenbeo opacity-100' 
-                : 'bg-gray-500 opacity-50'
-            }`}
-          />
-        ))}
+        {[0, 1, 2].map((index) => {
+          // Calculate if this dot should be active based on scroll position
+          const isActive = scrollPosition >= index / 3 && scrollPosition <= (index + 1) / 3;
+          return (
+            <div 
+              key={index}
+              className={`w-1 h-12 rounded-full transition-all duration-300 ${
+                isActive ? 'bg-tenbeo opacity-100' : 'bg-gray-500 opacity-50'
+              }`}
+            />
+          );
+        })}
       </div>
     </section>
   );

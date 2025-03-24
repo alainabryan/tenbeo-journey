@@ -88,7 +88,7 @@ const About = () => {
         {sections.map((section, index) => (
           <div 
             key={index}
-            className="min-h-screen w-full flex items-center justify-center"
+            className="min-h-screen w-full flex items-center"
             style={{ 
               position: 'sticky',
               top: `${index * 20}vh`,
@@ -96,8 +96,8 @@ const About = () => {
             }}
           >
             <div className="container mx-auto px-4">
-              <div className="max-w-3xl mx-auto">
-                <div className="flex justify-center mb-6">
+              <div className="max-w-3xl ml-0 md:ml-8 lg:ml-16">
+                <div className="flex mb-6">
                   <div className="p-4 rounded-full bg-tenbeo/10 backdrop-blur-sm">
                     {section.icon}
                   </div>

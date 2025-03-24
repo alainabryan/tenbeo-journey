@@ -33,18 +33,16 @@ const About = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      // Get scroll position relative to top of page
-      const scrollY = window.scrollY;
-      
       if (!aboutRef.current) return;
       
+      // Get scroll position relative to aboutRef
       const { top, height } = aboutRef.current.getBoundingClientRect();
       const windowHeight = window.innerHeight;
       
       // Only start rotation after scrolling past the hero section
       if (top <= windowHeight) {
-        // Calculate how far we've scrolled into the section
-        const scrolled = Math.max(0, -top / (height - windowHeight));
+        // Calculate how far we've scrolled into the section (0 to 1)
+        const scrolled = Math.max(0, Math.min(1, (windowHeight - top) / height));
         setScrollPosition(scrolled);
         
         // Rotate Calabeo based on scroll (0 to 270 degrees)
@@ -52,6 +50,7 @@ const About = () => {
         setCalabeoRotation(rotation);
         
         // Determine which text section should be visible (0, 1, or 2)
+        // Divide the scroll progress into three equal parts
         const sectionIndex = Math.min(2, Math.floor(scrolled * 3));
         setVisibleSection(sectionIndex);
       }
@@ -70,7 +69,7 @@ const About = () => {
       className="relative bg-gradient-to-b from-background to-black"
       style={{ height: '300vh' }} // Three times viewport height for scrolling
     >
-      {/* Fixed position container for the Calabeo - this will keep it centered on screen */}
+      {/* Fixed position container for the Calabeo - this will stay centered on screen during scroll */}
       <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-0 w-full h-screen flex items-center justify-center">
         {/* Background glow */}
         <div className="absolute inset-0 z-0 flex items-center justify-center">
@@ -108,15 +107,11 @@ const About = () => {
                   </div>
                 </div>
                 
-                <h2 className="text-4xl md:text-5xl font-bold mb-8 tracking-tight">
-                  {section.title}
+                <h2 className="text-4xl md:text-5xl font-bold mb-4 tracking-tight">
+                  {section.description}
                 </h2>
                 
-                <p className="text-2xl md:text-3xl leading-tight font-semibold mb-8 text-white">
-                  {section.description}
-                </p>
-                
-                <div className="glassmorphism rounded-xl p-6 border-l-4 border-tenbeo-light inline-block text-left">
+                <div className="glassmorphism rounded-xl p-6 border-l-4 border-tenbeo-light inline-block text-left mt-4">
                   <p className="text-xl font-medium text-tenbeo">
                     {section.highlight}
                   </p>

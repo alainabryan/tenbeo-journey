@@ -1,3 +1,4 @@
+
 import { useEffect, useRef, useState } from 'react';
 import { Shield, Lock, Sparkles } from 'lucide-react';
 import Calabeo from './Calabeo';
@@ -8,47 +9,52 @@ const About = () => {
   const [visibleSection, setVisibleSection] = useState(0);
   const aboutRef = useRef<HTMLDivElement>(null);
   
-  // Define sections outside of render for cleaner code
+  // Define sections with shorter, more impactful quotes
   const sections = [
     {
       title: "For the Future-Oriented",
-      description: "You're not just keeping up with technology—you're defining its trajectory. As a pioneer in digital authentication, you understand that true innovation isn't about incremental improvements, but paradigm shifts. Your heartbeat encryption doesn't just make you an early adopter; it makes you part of the vanguard reshaping the future of security.",
+      description: "Defining tomorrow's security standards today.",
       icon: <Sparkles className="w-8 h-8 text-tenbeo-light" />,
-      highlight: "Join the pioneers of next-generation security"
+      highlight: "Join the pioneers of next-generation authentication"
     },
     {
       title: "For the Security-Minded",
-      description: "In a world of escalating digital threats, you recognize that conventional safeguards are increasingly vulnerable. Your approach to security isn't reactionary—it's revolutionary. With cryptographic protection derived from your unique cardiac signature, you're establishing an unprecedented level of defense that transcends traditional authentication methods.",
+      description: "Protection beyond passwords, secured by your heartbeat.",
       icon: <Shield className="w-8 h-8 text-tenbeo-light" />,
-      highlight: "Unbreakable security based on your unique biological signature"
+      highlight: "Unbreakable security from your unique cardiac signature"
     },
     {
       title: "For the Privacy-Focused",
-      description: "You believe that maintaining control over your personal data isn't just a preference—it's a principle. With Tenbeo, your biometric information never leaves your device. Your heartbeat remains yours alone, processed locally and protected absolutely, ensuring that your most intimate identifier stays exactly where it belongs: with you.",
+      description: "Your biometric data never leaves your device.",
       icon: <Lock className="w-8 h-8 text-tenbeo-light" />,
-      highlight: "Your data stays on your device—always"
+      highlight: "Total control over your most personal identifier"
     }
   ];
 
   useEffect(() => {
     const handleScroll = () => {
+      // Get scroll position relative to top of page
+      const scrollY = window.scrollY;
+      
       if (!aboutRef.current) return;
       
       const { top, height } = aboutRef.current.getBoundingClientRect();
       const windowHeight = window.innerHeight;
       
-      // Calculate how far we've scrolled into the section
-      // This value will be 0 when just entering, and 1 when leaving
-      const scrolled = Math.max(0, -top / (height - windowHeight));
-      setScrollPosition(scrolled);
-      
-      // Rotate Calabeo based on scroll (0 to 270 degrees)
-      const rotation = scrolled * 270;
-      setCalabeoRotation(rotation);
-      
-      // Determine which text section should be visible (0, 1, or 2)
-      const sectionIndex = Math.min(2, Math.floor(scrolled * 3));
-      setVisibleSection(sectionIndex);
+      // Only start rotation after scrolling past the hero section
+      if (top <= windowHeight) {
+        // Calculate how far we've scrolled into the section
+        const scrolled = Math.max(0, -top / (height - windowHeight));
+        setScrollPosition(scrolled);
+        
+        // Rotate Calabeo based on scroll (0 to 270 degrees)
+        const rotation = scrolled * 270;
+        setCalabeoRotation(rotation);
+        
+        // Determine which text section should be visible (0, 1, or 2)
+        const sectionIndex = Math.min(2, Math.floor(scrolled * 3));
+        setVisibleSection(sectionIndex);
+      }
     };
     
     window.addEventListener('scroll', handleScroll);
@@ -106,7 +112,7 @@ const About = () => {
                   {section.title}
                 </h2>
                 
-                <p className="text-xl md:text-2xl leading-relaxed text-muted-foreground mb-8">
+                <p className="text-2xl md:text-3xl leading-tight font-semibold mb-8 text-white">
                   {section.description}
                 </p>
                 

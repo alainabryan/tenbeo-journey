@@ -1,5 +1,5 @@
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
 import About from '@/components/About';
@@ -10,7 +10,6 @@ import EnterpriseSection from '@/components/EnterpriseSection';
 import FAQs from '@/components/FAQs';
 import Footer from '@/components/Footer';
 import PreOrderCTA from '@/components/PreOrderCTA';
-import Calabeo from '@/components/Calabeo';
 
 const Index = () => {
   // Add smooth scrolling for all anchor links

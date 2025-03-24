@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Shield, Lock, Sparkles } from 'lucide-react';
 import Calabeo from './Calabeo';
+import { Separator } from '@/components/ui/separator';
 
 const About = () => {
   const [scrollPosition, setScrollPosition] = useState(0);
@@ -61,7 +62,6 @@ const About = () => {
       id="about" 
       ref={aboutRef}
       className="relative bg-gradient-to-b from-background to-black"
-      style={{ height: '250vh' }} // Increased from 200vh to 250vh for better spacing
     >
       {/* Fixed position container for the Calabeo - this will stay centered on screen during scroll */}
       <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-0 w-full h-screen flex items-center justify-center">
@@ -82,7 +82,7 @@ const About = () => {
       {/* Content sections - these will scroll past the fixed Calabeo */}
       <div className="relative z-10">
         {/* Spacer to push content down so first section appears after Calabeo is visible */}
-        <div style={{ height: '40vh' }}></div> {/* Reduced from 50vh to 40vh */}
+        <div style={{ height: '40vh' }}></div>
         
         {/* Content sections positioned at specific scroll points */}
         {sections.map((section, index) => (
@@ -91,7 +91,7 @@ const About = () => {
             className="min-h-screen w-full flex items-center justify-center"
             style={{ 
               position: 'sticky',
-              top: `${index * 20}vh`, // Reduced from 25vh to 20vh for better vertical distribution
+              top: `${index * 20}vh`,
               zIndex: 10 
             }}
           >
@@ -117,8 +117,15 @@ const About = () => {
           </div>
         ))}
         
+        {/* Divider to create clear separation between About and PreOrderCTA */}
+        <div className="py-20 relative z-20">
+          <div className="container mx-auto px-4">
+            <Separator className="h-[2px] bg-tenbeo/20 w-full mx-auto max-w-2xl" />
+          </div>
+        </div>
+        
         {/* Add extra space after the last section to prevent overlap with PreOrderCTA */}
-        <div style={{ height: '100vh' }}></div> {/* Increased from 50vh to 100vh for more space at the end */}
+        <div style={{ height: '30vh' }}></div>
       </div>
       
       {/* Scroll progress indicator dots */}

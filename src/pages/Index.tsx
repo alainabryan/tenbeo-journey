@@ -65,10 +65,12 @@ const Index = () => {
       <main>
         <Hero />
         <About />
-        <PreOrderCTA 
-          variant="primary" 
-          showHeartbeat={true} 
-        />
+        <div id="preorder-section" className="relative z-10 pt-10">
+          <PreOrderCTA 
+            variant="primary" 
+            showHeartbeat={true} 
+          />
+        </div>
         <HowItWorks />
         <Technology />
         <Pricing />

@@ -61,7 +61,7 @@ const About = () => {
       id="about" 
       ref={aboutRef}
       className="relative bg-gradient-to-b from-background to-black"
-      style={{ height: '300vh' }} // Three times viewport height for scrolling
+      style={{ height: '200vh' }} // Reduced from 300vh to 200vh for better spacing
     >
       {/* Fixed position container for the Calabeo - this will stay centered on screen during scroll */}
       <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-0 w-full h-screen flex items-center justify-center">
@@ -82,7 +82,7 @@ const About = () => {
       {/* Content sections - these will scroll past the fixed Calabeo */}
       <div className="relative z-10">
         {/* Spacer to push content down so first section appears after Calabeo is visible */}
-        <div style={{ height: '100vh' }}></div>
+        <div style={{ height: '50vh' }}></div>
         
         {/* Content sections positioned at specific scroll points */}
         {sections.map((section, index) => (
@@ -91,7 +91,7 @@ const About = () => {
             className="min-h-screen w-full flex items-center justify-center"
             style={{ 
               position: 'sticky',
-              top: `${index * 33}vh`, 
+              top: `${index * 25}vh`, // Adjusted from 33vh to 25vh for better spacing
               zIndex: 10 
             }}
           >
@@ -116,6 +116,9 @@ const About = () => {
             </div>
           </div>
         ))}
+        
+        {/* Add extra space after the last section to prevent overlap with PreOrderCTA */}
+        <div style={{ height: '50vh' }}></div>
       </div>
       
       {/* Scroll progress indicator dots */}

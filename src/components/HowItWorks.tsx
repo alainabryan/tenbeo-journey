@@ -1,7 +1,8 @@
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { cn } from '@/lib/utils';
 import { Heart, Brain, Lock, Mail } from 'lucide-react';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 
 const steps = [
   {
@@ -41,6 +42,7 @@ const steps = [
 const HowItWorks = () => {
   const [activeStep, setActiveStep] = useState('step1');
   const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -50,7 +52,7 @@ const HowItWorks = () => {
       { threshold: 0.3 }
     );
     
-    const section = document.getElementById('how-it-works');
+    const section = sectionRef.current;
     if (section) {
       observer.observe(section);
     }
@@ -62,10 +64,48 @@ const HowItWorks = () => {
     };
   }, []);
 
+  useEffect(() => {
+    // Auto-cycle through tabs when the section is visible
+    if (!isVisible) return;
+    
+    const interval = setInterval(() => {
+      setActiveStep(prevStep => {
+        const currentIndex = steps.findIndex(step => step.id === prevStep);
+        const nextIndex = (currentIndex + 1) % steps.length;
+        return steps[nextIndex].id;
+      });
+    }, 4000); // Switch every 4 seconds
+    
+    return () => clearInterval(interval);
+  }, [isVisible]);
+
+  // Set up scroll-based tab switching
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!sectionRef.current || !isVisible) return;
+      
+      const { top, height } = sectionRef.current.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+      
+      // If section is in view
+      if (top <= windowHeight && top > -height) {
+        // Calculate how far we've scrolled through the section (0 to 1)
+        const scrollProgress = Math.min(1, Math.max(0, (windowHeight - top) / (windowHeight + height)));
+        
+        // Map scroll progress to tab index
+        const stepIndex = Math.min(steps.length - 1, Math.floor(scrollProgress * steps.length));
+        setActiveStep(steps[stepIndex].id);
+      }
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [isVisible]);
+
   const currentStep = steps.find(step => step.id === activeStep) || steps[0];
 
   return (
-    <section id="how-it-works" className="section-container relative overflow-hidden bg-gradient-to-b from-black to-background">
+    <section id="how-it-works" ref={sectionRef} className="section-container relative overflow-hidden bg-gradient-to-b from-black to-background">
       <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(87,19,203,0.1),transparent_70%)]"></div>
       </div>
@@ -79,74 +119,76 @@ const HowItWorks = () => {
           </p>
         </div>
 
-        <div className="flex flex-col md:flex-row gap-8">
-          <div className="md:w-1/3 glassmorphism rounded-xl p-6 flex flex-col">
-            <div className="mb-8">
-              <h3 className="text-xl font-semibold mb-4">Process Steps</h3>
-              <p className="text-muted-foreground text-sm mb-6">
-                Select a step to see the details of how Tenbeo's heartbeat authentication works.
-              </p>
-            </div>
-
-            <div className="space-y-2 flex-grow">
-              {steps.map((step, index) => (
-                <button
-                  key={step.id}
-                  onClick={() => setActiveStep(step.id)}
-                  className={cn(
-                    "w-full text-left p-4 rounded-lg transition-all duration-300 flex items-center gap-3",
-                    activeStep === step.id
-                      ? "bg-tenbeo/20 text-white"
-                      : "hover:bg-tenbeo/10 text-muted-foreground"
-                  )}
-                >
-                  <div className={cn(
-                    "flex items-center justify-center w-8 h-8 rounded-full text-white",
-                    `bg-gradient-to-br ${step.color}`
-                  )}>
-                    {index + 1}
-                  </div>
-                  <span>{step.title}</span>
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <div className="md:w-2/3 glassmorphism rounded-xl p-8 flex flex-col items-center transition-all duration-500">
-            <div className={cn(
-              "w-32 h-32 mb-8 rounded-full flex items-center justify-center bg-gradient-to-br p-[2px]",
-              `${currentStep.color}`,
-              isVisible ? "animate-scale-in" : "opacity-0"
-            )}>
-              <div className="bg-card w-full h-full rounded-full flex items-center justify-center">
-                <currentStep.icon className="w-16 h-16 text-white" />
-              </div>
-            </div>
-
-            <h3 className={cn(
-              "text-2xl md:text-3xl font-bold mb-4 text-center",
-              isVisible ? "animate-fade-in" : "opacity-0"
-            )}>
-              {currentStep.title}
-            </h3>
-
-            <p className={cn(
-              "text-xl text-center text-muted-foreground mb-8",
-              isVisible ? "animate-fade-in" : "opacity-0"
-            )} style={{ animationDelay: '0.2s' }}>
-              {currentStep.description}
-            </p>
-
-            <div className={cn(
-              "w-full p-6 rounded-lg bg-tenbeo/5 border border-tenbeo/20",
-              isVisible ? "animate-fade-in" : "opacity-0"
-            )} style={{ animationDelay: '0.4s' }}>
-              <p className="text-muted-foreground">
-                {currentStep.details}
-              </p>
+        <div className="flex flex-col items-center mb-12">
+          {/* Visual representation of current step */}
+          <div className={cn(
+            "w-32 h-32 mb-8 rounded-full flex items-center justify-center bg-gradient-to-br p-[2px]",
+            `${currentStep.color}`,
+            isVisible ? "animate-scale-in" : "opacity-0"
+          )}>
+            <div className="bg-card w-full h-full rounded-full flex items-center justify-center">
+              <currentStep.icon className="w-16 h-16 text-white" />
             </div>
           </div>
         </div>
+
+        {/* Horizontal Tabs */}
+        <Tabs 
+          value={activeStep} 
+          onValueChange={setActiveStep}
+          className="w-full max-w-3xl mx-auto"
+        >
+          <TabsList className="w-full grid grid-cols-4 mb-8">
+            {steps.map((step) => (
+              <TabsTrigger 
+                key={step.id} 
+                value={step.id}
+                className={cn(
+                  "flex flex-col items-center gap-2 py-3 data-[state=active]:bg-tenbeo/20",
+                  "transition-all duration-300"
+                )}
+              >
+                <div className={cn(
+                  "w-10 h-10 rounded-full flex items-center justify-center",
+                  `bg-gradient-to-br ${step.color}`
+                )}>
+                  <step.icon className="w-5 h-5 text-white" />
+                </div>
+                <span className="text-xs sm:text-sm font-medium">
+                  {step.title.split(' ').slice(0, 2).join(' ')}
+                </span>
+              </TabsTrigger>
+            ))}
+          </TabsList>
+
+          {/* Tab Content */}
+          <div className="glassmorphism rounded-xl p-8 transition-all duration-500 min-h-[300px]">
+            {steps.map((step) => (
+              <TabsContent 
+                key={step.id} 
+                value={step.id}
+                className={cn(
+                  "space-y-6 focus-visible:outline-none focus-visible:ring-0",
+                  isVisible ? "animate-fade-in" : "opacity-0"
+                )}
+              >
+                <h3 className="text-2xl md:text-3xl font-bold mb-4 text-center">
+                  {step.title}
+                </h3>
+                
+                <p className="text-xl text-center text-muted-foreground mb-8">
+                  {step.description}
+                </p>
+
+                <div className="w-full p-6 rounded-lg bg-tenbeo/5 border border-tenbeo/20">
+                  <p className="text-muted-foreground">
+                    {step.details}
+                  </p>
+                </div>
+              </TabsContent>
+            ))}
+          </div>
+        </Tabs>
       </div>
     </section>
   );

@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from 'react';
 import { cn } from '@/lib/utils';
 import { Heart, Brain, Lock, Mail } from 'lucide-react';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
+import { Progress } from '@/components/ui/progress';
 
 const steps = [
   {
@@ -103,6 +104,8 @@ const HowItWorks = () => {
   }, [isVisible]);
 
   const currentStep = steps.find(step => step.id === activeStep) || steps[0];
+  const currentStepIndex = steps.findIndex(step => step.id === activeStep);
+  const progressValue = ((currentStepIndex + 1) / steps.length) * 100;
 
   return (
     <section id="how-it-works" ref={sectionRef} className="section-container relative overflow-hidden bg-gradient-to-b from-black to-background">
@@ -136,33 +139,54 @@ const HowItWorks = () => {
         <Tabs 
           value={activeStep} 
           onValueChange={setActiveStep}
-          className="w-full max-w-3xl mx-auto"
+          className="w-full max-w-3xl mx-auto flex flex-col"
         >
-          <TabsList className="w-full grid grid-cols-4 mb-8">
-            {steps.map((step) => (
-              <TabsTrigger 
-                key={step.id} 
-                value={step.id}
-                className={cn(
-                  "flex flex-col items-center gap-2 py-3 data-[state=active]:bg-tenbeo/20",
-                  "transition-all duration-300"
-                )}
-              >
-                <div className={cn(
-                  "w-10 h-10 rounded-full flex items-center justify-center",
-                  `bg-gradient-to-br ${step.color}`
-                )}>
-                  <step.icon className="w-5 h-5 text-white" />
-                </div>
-                <span className="text-xs sm:text-sm font-medium">
-                  {step.title.split(' ').slice(0, 2).join(' ')}
-                </span>
-              </TabsTrigger>
-            ))}
-          </TabsList>
+          <div className="flex flex-col space-y-6 mb-8 w-full">
+            {/* Progress Bar */}
+            <div className="w-full px-4">
+              <Progress value={progressValue} className="h-2" 
+                // Custom styling for the progress indicator
+                style={{
+                  background: "rgba(87, 19, 203, 0.2)"
+                }}
+              />
+            </div>
+            
+            {/* Tab Buttons */}
+            <TabsList className="w-full grid grid-cols-4 h-auto py-2">
+              {steps.map((step, index) => (
+                <TabsTrigger 
+                  key={step.id} 
+                  value={step.id}
+                  className={cn(
+                    "flex flex-col items-center gap-2 py-4 data-[state=active]:bg-tenbeo/20",
+                    "transition-all duration-300 relative",
+                    { "text-tenbeo": step.id === activeStep },
+                    { "bg-tenbeo/10": index <= currentStepIndex }
+                  )}
+                >
+                  <div className={cn(
+                    "w-10 h-10 rounded-full flex items-center justify-center",
+                    `bg-gradient-to-br ${step.color}`,
+                    { "ring-2 ring-tenbeo ring-offset-2 ring-offset-background": step.id === activeStep }
+                  )}>
+                    <step.icon className="w-5 h-5 text-white" />
+                  </div>
+                  <span className="text-xs sm:text-sm font-medium line-clamp-2 px-1 text-center">
+                    {step.title.split(' ').slice(0, 2).join(' ')}
+                  </span>
+                  
+                  {/* Add number indicator for the step */}
+                  <div className="absolute -top-2 -right-2 w-5 h-5 bg-tenbeo text-white rounded-full flex items-center justify-center text-xs font-bold">
+                    {index + 1}
+                  </div>
+                </TabsTrigger>
+              ))}
+            </TabsList>
+          </div>
 
           {/* Tab Content */}
-          <div className="glassmorphism rounded-xl p-8 transition-all duration-500 min-h-[300px]">
+          <div className="glassmorphism rounded-xl p-8 transition-all duration-500 min-h-[300px] mt-6">
             {steps.map((step) => (
               <TabsContent 
                 key={step.id} 

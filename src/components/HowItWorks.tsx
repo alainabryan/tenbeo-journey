@@ -44,6 +44,8 @@ const HowItWorks = () => {
   const [activeStep, setActiveStep] = useState('step1');
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
+  const isScrollingRef = useRef(false);
+  const timeoutRef = useRef<number>();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -70,37 +72,55 @@ const HowItWorks = () => {
     if (!isVisible) return;
     
     const interval = setInterval(() => {
-      setActiveStep(prevStep => {
-        const currentIndex = steps.findIndex(step => step.id === prevStep);
-        const nextIndex = (currentIndex + 1) % steps.length;
-        return steps[nextIndex].id;
-      });
-    }, 4000); // Switch every 4 seconds
+      if (!isScrollingRef.current) {
+        setActiveStep(prevStep => {
+          const currentIndex = steps.findIndex(step => step.id === prevStep);
+          const nextIndex = (currentIndex + 1) % steps.length;
+          return steps[nextIndex].id;
+        });
+      }
+    }, 4000);
     
     return () => clearInterval(interval);
   }, [isVisible]);
 
-  // Set up scroll-based tab switching
+  // Throttled scroll handler
   useEffect(() => {
     const handleScroll = () => {
-      if (!sectionRef.current || !isVisible) return;
+      if (isScrollingRef.current) return;
       
-      const { top, height } = sectionRef.current.getBoundingClientRect();
-      const windowHeight = window.innerHeight;
+      isScrollingRef.current = true;
       
-      // If section is in view
-      if (top <= windowHeight && top > -height) {
-        // Calculate how far we've scrolled through the section (0 to 1)
-        const scrollProgress = Math.min(1, Math.max(0, (windowHeight - top) / (windowHeight + height)));
-        
-        // Map scroll progress to tab index
-        const stepIndex = Math.min(steps.length - 1, Math.floor(scrollProgress * steps.length));
-        setActiveStep(steps[stepIndex].id);
+      if (timeoutRef.current) {
+        window.clearTimeout(timeoutRef.current);
       }
+      
+      timeoutRef.current = window.setTimeout(() => {
+        if (!sectionRef.current || !isVisible) {
+          isScrollingRef.current = false;
+          return;
+        }
+        
+        const { top, height } = sectionRef.current.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+        
+        if (top <= windowHeight && top > -height) {
+          const scrollProgress = Math.min(1, Math.max(0, (windowHeight - top) / (windowHeight + height)));
+          const stepIndex = Math.min(steps.length - 1, Math.floor(scrollProgress * steps.length));
+          setActiveStep(steps[stepIndex].id);
+        }
+        
+        isScrollingRef.current = false;
+      }, 100); // Throttle to 100ms
     };
     
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (timeoutRef.current) {
+        window.clearTimeout(timeoutRef.current);
+      }
+    };
   }, [isVisible]);
 
   const currentStep = steps.find(step => step.id === activeStep) || steps[0];

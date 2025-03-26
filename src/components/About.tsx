@@ -75,7 +75,7 @@ const About = () => {
           className="relative z-0"
           style={{ transform: `rotate(${calabeoRotation}deg)` }}
         >
-          <Calabeo size="xl" variant="spiro" animated={true} />
+          <Calabeo size="xl" variant="purple-wave" animated={true} />
         </div>
       </div>
       

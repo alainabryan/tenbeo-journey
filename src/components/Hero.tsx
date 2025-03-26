@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -34,13 +33,11 @@ const Hero = () => {
       </div>
       
       <div className="container relative z-10 flex flex-col items-center justify-between px-4 md:px-8">
-        {/* Calabeo positioned absolutely for all screen sizes, centered */}
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-70 md:opacity-100 -z-10">
-          <Calabeo size={isMobile ? "xl" : "xl"} variant="spiro" className="z-0" />
+          <Calabeo size={isMobile ? "xl" : "xl"} variant="purple-wave" className="z-0" />
         </div>
         
         <div className="w-full md:flex md:flex-row justify-between items-start gap-6 z-10">
-          {/* Left column */}
           <div className="w-full md:w-1/3 flex flex-col items-start mb-8 md:mb-0">
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-4">
               Authenticate<br />
@@ -68,7 +65,6 @@ const Hero = () => {
             </div>
           </div>
           
-          {/* Right column - feature boxes */}
           <div className="w-full md:w-1/3 space-y-3 flex flex-col">
             <div className="p-3 rounded-2xl bg-black/50 backdrop-blur-sm border border-tenbeo/20">
               <div className="flex items-center">
@@ -108,7 +104,6 @@ const Hero = () => {
           </div>
         </div>
         
-        {/* Pre-order now available button - fixed to bottom right corner of screen */}
         <div className="fixed bottom-6 right-6 z-50">
           <div className="h-10 px-6 rounded-full border border-tenbeo bg-black/70 backdrop-blur-sm flex items-center">
             <span className="text-sm font-medium">Pre-order now available</span>
